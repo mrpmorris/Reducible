@@ -23,6 +23,7 @@ for (int i = 1; i <= 6; i++)
 {
 	var action = new UpdateValuesAction(i);
 	(bool changed, state) = compositeReducer(state, action);
+	Console.ForegroundColor = changed ? ConsoleColor.Red : ConsoleColor.Green;
 	Console.WriteLine($"Step={i + 1}, Changed={changed}, State={JsonSerializer.Serialize(state)}");
 }
 //	Output:

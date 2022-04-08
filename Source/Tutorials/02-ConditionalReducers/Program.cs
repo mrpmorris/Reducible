@@ -16,6 +16,7 @@ var action = new IncrementCounterAction(1);
 for (int i = 0; i < 3; i++)
 {
 	(bool changed, state) = counterIncrementCounterReducer(state, action);
+	Console.ForegroundColor = changed ? ConsoleColor.Red : ConsoleColor.Green;
 	Console.WriteLine($"Step={i + 1}, Changed={changed}, State={JsonSerializer.Serialize(state)}");
 }
 //	Output:
