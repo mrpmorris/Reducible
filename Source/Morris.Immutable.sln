@@ -33,6 +33,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-CompositeNestedReducers"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositeNestedReducers", "Tutorials\05-CompositeNestedReducers\CompositeNestedReducers.csproj", "{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-RootReducers", "06-RootReducers", "{2AFE3473-0D71-473F-AE20-0AEC29C2B68D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RootReducers", "Tutorials\06-RootReducers\RootReducers.csproj", "{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,10 @@ Global
 		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +86,8 @@ Global
 		{E10585DD-EF89-44E1-9DBD-D9B57A8B52B0} = {7A0E955A-8333-4C6D-87B3-E85440A940C7}
 		{BBFC1153-999B-4C86-9F82-3589087DD5CD} = {05B9D02A-F1F9-46DA-9081-F9A16E073D09}
 		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3} = {BBFC1153-999B-4C86-9F82-3589087DD5CD}
+		{2AFE3473-0D71-473F-AE20-0AEC29C2B68D} = {05B9D02A-F1F9-46DA-9081-F9A16E073D09}
+		{EEDDBA6F-330F-4ECE-A767-5BA42C24426C} = {2AFE3473-0D71-473F-AE20-0AEC29C2B68D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32A9821E-C47E-4A4C-826C-897FFCF19E2A}
