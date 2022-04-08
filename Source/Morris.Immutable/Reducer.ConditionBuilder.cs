@@ -19,10 +19,16 @@ public static partial class Reducer
 			return reducer;
 		}
 
+		public ObjectResultMapper<TState, TSubState, TAction> WhenReducedBy<TSubState>(
+			Func<TState, TSubState> subStateSelector,
+			Func<TSubState, TAction, Result<TSubState>> reducer)
+		=>
+			new ObjectResultMapper<TState, TSubState, TAction>(subStateSelector, reducer);
+
 		public ImmutableArrayResultMapper<TState, TElement, TAction> WhenReducedBy<TElement>(
-			Func<TState, ImmutableArray<TElement>> subState,
+			Func<TState, ImmutableArray<TElement>> subStateSelector,
 			Func<TElement, TAction, Result<TElement>> reducer)
 			=>
-				new ImmutableArrayResultMapper<TState, TElement, TAction>(subState, reducer);
+				new ImmutableArrayResultMapper<TState, TElement, TAction>(subStateSelector, reducer);
 	}
 }
