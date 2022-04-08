@@ -21,8 +21,8 @@ public static partial class Reducer
 
 		public ImmutableArrayResultMapper<TState, TElement, TAction> WhenReducedBy<TElement>(
 			Func<TState, ImmutableArray<TElement>> subState,
-			Func<TElement, TAction, Result<TElement>> condition)
+			Func<TElement, TAction, Result<TElement>> reducer)
 			=>
-				new ImmutableArrayResultMapper<TState, TElement, TAction>(subState, condition);
+				new ImmutableArrayResultMapper<TState, TElement, TAction>(subState, reducer);
 	}
 }

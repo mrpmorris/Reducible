@@ -23,6 +23,8 @@ var oddValueReducer = Reducer
 var compositeReducer = Reducer.Combine(evenValueReducer, oddValueReducer);
 
 var state = new ValuesState(EvenValue: 0, OddValue: 0);
+
+Console.WriteLine($"Original state={JsonSerializer.Serialize(state)}");
 for (int i = 1; i <= 6; i++)
 {
 	var action = new UpdateValuesAction(i);
@@ -31,6 +33,7 @@ for (int i = 1; i <= 6; i++)
 	Console.WriteLine($"Step={i + 1}, Changed={changed}, State={JsonSerializer.Serialize(state)}");
 }
 //	Output:
+//		Original state={"EvenValue":0,"OddValue":0}
 //		Step=2, Changed=True, State={"EvenValue":0,"OddValue":1}
 //		Step=3, Changed=True, State={"EvenValue":2,"OddValue":1}
 //		Step=4, Changed=False, State={"EvenValue":2,"OddValue":1}
@@ -38,4 +41,5 @@ for (int i = 1; i <= 6; i++)
 //		Step=6, Changed=False, State={"EvenValue":4,"OddValue":1}
 //		Step=7, Changed=True, State={"EvenValue":6,"OddValue":1}
 
+Console.ForegroundColor = ConsoleColor.White; 
 Console.ReadLine();
