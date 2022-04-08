@@ -66,6 +66,9 @@ var schoolReducer = Reducer.CreateBuilder<School>()
 (changed, school) = schoolReducer(school, changeHeadStudentAction);
 
 Console.WriteLine($"New state={JsonSerializer.Serialize(school)}");
+//	Output:
+//		Original state={"Students":[{"Id":1,"Name":"Peter Morris","Achievements":[]},{"Id":2,"Name":"Steven Cramer","Achievements":[]}],"HeadStudent":{"Id":2,"Name":"Steven Cramer","Achievements":[]}}
+//		New state={"Students":[{"Id":1,"Name":"Peter Morris","Achievements":[]},{"Id":2,"Name":"Steven Cramer","Achievements":["Smells"]}],"HeadStudent":{"Id":1,"Name":"Peter Morris","Achievements":[]}}
 
 Console.ForegroundColor = ConsoleColor.White;
 Console.ReadLine();
