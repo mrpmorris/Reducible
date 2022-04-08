@@ -11,6 +11,14 @@ public static partial class Reducer
 
 		public ResultMapper<TState, TAction> When(Func<TState, TAction, bool> condition) => new ResultMapper<TState, TAction>(condition);
 
+		public Func<TState, TAction, Result<TState>> Then(Func<TState, TAction, Result<TState>> reducer)
+		{
+			if (reducer is null)
+				throw new ArgumentNullException(nameof(reducer));
+
+			return reducer;
+		}
+
 		public ImmutableArrayResultMapper<TState, TElement, TAction> WhenReducedBy<TElement>(
 			Func<TState, ImmutableArray<TElement>> subState,
 			Func<TElement, TAction, Result<TElement>> condition)
