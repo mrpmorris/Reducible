@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04-NestedReducers", "04-Nes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NestedReducers", "Tutorials\04-NestedReducers\NestedReducers.csproj", "{E10585DD-EF89-44E1-9DBD-D9B57A8B52B0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05-CompositeNestedReducers", "05-CompositeNestedReducers", "{BBFC1153-999B-4C86-9F82-3589087DD5CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositeNestedReducers", "Tutorials\05-CompositeNestedReducers\CompositeNestedReducers.csproj", "{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +59,10 @@ Global
 		{E10585DD-EF89-44E1-9DBD-D9B57A8B52B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E10585DD-EF89-44E1-9DBD-D9B57A8B52B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E10585DD-EF89-44E1-9DBD-D9B57A8B52B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +76,8 @@ Global
 		{F55E1C3C-2BB1-4782-BACD-D84E90991687} = {DB4BC08A-F66D-4F62-8B46-993F3C1C563A}
 		{7A0E955A-8333-4C6D-87B3-E85440A940C7} = {05B9D02A-F1F9-46DA-9081-F9A16E073D09}
 		{E10585DD-EF89-44E1-9DBD-D9B57A8B52B0} = {7A0E955A-8333-4C6D-87B3-E85440A940C7}
+		{BBFC1153-999B-4C86-9F82-3589087DD5CD} = {05B9D02A-F1F9-46DA-9081-F9A16E073D09}
+		{D23D038B-E929-4CFB-A7A4-46AC1DAB42D3} = {BBFC1153-999B-4C86-9F82-3589087DD5CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32A9821E-C47E-4A4C-826C-897FFCF19E2A}

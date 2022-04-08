@@ -27,7 +27,9 @@ public static partial class Reducer
 				TSubState subState = SubStateSelector(state);
 				(bool changed, subState) = SubStateReducer(subState, action);
 
-				return (changed, state);
+				return changed
+					? (true, reducer(state, subState))
+					: (false, state);
 			};
 		}
 	}
