@@ -1,4 +1,6 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
+using System.Linq;
 
 namespace Morris.Immutable;
 
@@ -6,11 +8,13 @@ public static partial class Reducer
 {
 	public static ConditionBuilder<TState, TAction> Given<TState, TAction>() => new ConditionBuilder<TState, TAction>();
 
-	public static Func<TState, TAction, Result<TState>> Reduce<TState, TAction>(Func<TState, TAction, Result<TState>> reducer) => reducer;
+	// Not sure if I want this yet, or not
+	//public static Func<TState, TAction, Result<TState>> Reduce<TState, TAction>(Func<TState, TAction, Result<TState>> reducer) => reducer;
 
 	public static Func<TState, TAction, Result<TState>> Combine<TState, TAction>(params Func<TState, TAction, Result<TState>>[] reducers)
 	{
-		ArgumentNullException.ThrowIfNull(reducers);
+		if (reducers is null)
+			throw new ArgumentNullException(nameof(reducers));
 		if (reducers.Length < 2)
 			throw new ArgumentException(paramName: nameof(reducers), message: "At least two reducers are required.");
 		if (reducers.Any(x => x is null))

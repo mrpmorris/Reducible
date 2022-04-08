@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using System;
+using System.Collections.Immutable;
 
 namespace Morris.Immutable;
 
@@ -19,7 +20,9 @@ public static partial class Reducer
 
 		public Func<TState, TAction, Result<TState>> Then(Func<TState, ImmutableArray<TElement>, TState> reducer)
 		{
-			ArgumentNullException.ThrowIfNull(reducer);
+			if (reducer is null)
+				throw new ArgumentNullException(nameof(reducer));
+			
 			return (TState state, TAction action) =>
 			{
 				ImmutableArray<TElement> elements = Selector(state);

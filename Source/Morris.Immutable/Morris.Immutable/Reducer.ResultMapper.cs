@@ -1,4 +1,6 @@
-﻿namespace Morris.Immutable;
+﻿using System;
+
+namespace Morris.Immutable;
 
 public static partial class Reducer
 {
@@ -13,7 +15,9 @@ public static partial class Reducer
 
 		public Func<TState, TAction, Result<TState>> Then(Func<TState, TAction, TState> reducer)
 		{
-			ArgumentNullException.ThrowIfNull(reducer);
+			if (reducer is null)
+				throw new ArgumentNullException(nameof(reducer));
+			
 			return (TState state, TAction action) => Condition(state, action) ? (true, reducer(state, action)) : (false, state);
 		}
 	}
