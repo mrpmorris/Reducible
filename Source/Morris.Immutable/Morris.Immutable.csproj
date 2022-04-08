@@ -4,19 +4,18 @@
 		<TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
 		<LangVersion>10</LangVersion>
 		<Nullable>enable</Nullable>
-		<SignAssembly Condition="'$(Configuration)'=='Release'" >True</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\..\MrPMorris.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
-	
-	<PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<Product>Morris.Immutable</Product>
 		<Description>An Immutable State library for optimised/reusable reducers in .NET</Description>
 		<PackageIcon>small-logo.png</PackageIcon>
 		<PackageTags>Immutable DotNet CSharp</PackageTags>
-		<SignAssembly Condition="'$(Configuration)'=='Release'" >True</SignAssembly>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>..\..\MrPMorris.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>	
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
 		<None Include="..\..\Images\small-logo.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>

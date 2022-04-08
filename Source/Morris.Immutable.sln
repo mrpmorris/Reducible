@@ -17,9 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleReducers", "Tutorials
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-SimpleReducers", "01-SimpleReducers", "{2AD16FCD-9762-4D80-9296-9DC44E57971C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-ConditionalReducer", "02-ConditionalReducer", "{72036167-950B-4070-A18A-0570E6ED9F20}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-ConditionalReducers", "02-ConditionalReducers", "{72036167-950B-4070-A18A-0570E6ED9F20}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConditionalReducers", "Tutorials\02-ConditionalReducers\ConditionalReducers.csproj", "{3EED7BFB-D0B6-421B-B3E3-AF963148444F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-CompositeReducers", "03-CompositeReducers", "{DB4BC08A-F66D-4F62-8B46-993F3C1C563A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompositeReducers", "Tutorials\03-CompositeReducers\CompositeReducers.csproj", "{F55E1C3C-2BB1-4782-BACD-D84E90991687}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,10 @@ Global
 		{3EED7BFB-D0B6-421B-B3E3-AF963148444F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EED7BFB-D0B6-421B-B3E3-AF963148444F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EED7BFB-D0B6-421B-B3E3-AF963148444F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F55E1C3C-2BB1-4782-BACD-D84E90991687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F55E1C3C-2BB1-4782-BACD-D84E90991687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F55E1C3C-2BB1-4782-BACD-D84E90991687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F55E1C3C-2BB1-4782-BACD-D84E90991687}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +56,8 @@ Global
 		{2AD16FCD-9762-4D80-9296-9DC44E57971C} = {05B9D02A-F1F9-46DA-9081-F9A16E073D09}
 		{72036167-950B-4070-A18A-0570E6ED9F20} = {05B9D02A-F1F9-46DA-9081-F9A16E073D09}
 		{3EED7BFB-D0B6-421B-B3E3-AF963148444F} = {72036167-950B-4070-A18A-0570E6ED9F20}
+		{DB4BC08A-F66D-4F62-8B46-993F3C1C563A} = {05B9D02A-F1F9-46DA-9081-F9A16E073D09}
+		{F55E1C3C-2BB1-4782-BACD-D84E90991687} = {DB4BC08A-F66D-4F62-8B46-993F3C1C563A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {32A9821E-C47E-4A4C-826C-897FFCF19E2A}
