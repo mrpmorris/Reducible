@@ -1,11 +1,14 @@
 ﻿using Morris.Immutable;
 using System.Text.Json;
 
-// Create a simple unconditional reducer.
-// The result should be (bool Changed, TState newState)
+// Create a conditional reducer.
+// The result should be TState newState.
+// The conditional reducer will change this to (bool Changed, TState newState)
+// based on whether or not the condition triggered the reducer code.
 var counterIncrementCounterReducer = Reducer
 	.Given<CounterState, IncrementCounterAction>()
-	.Then((s, a) => (true, s with { Counter = s.Counter + a.Delta }));
+	.When((s, a) => s.Counter < 2)
+	.Then((s, a) => s with { Counter = s.Counter + a.Delta });
 
 var state = new CounterState(0);
 var action = new IncrementCounterAction(1);
@@ -18,7 +21,7 @@ for (int i = 0; i < 3; i++)
 //	Output:
 //		Step=1, Changed=True, State={"Counter":1}
 //		Step=2, Changed=True, State={"Counter":2}
-//		Step=3, Changed=True, State={"Counter":3}
+//		Step=3, Changed=False, State={"Counter":2}
 Console.ReadLine();
 
 
