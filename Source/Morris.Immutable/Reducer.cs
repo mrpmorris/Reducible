@@ -8,9 +8,6 @@ public static partial class Reducer
 {
 	public static ConditionBuilder<TState, TAction> Given<TState, TAction>() => new ConditionBuilder<TState, TAction>();
 
-	// Not sure if I want this yet, or not
-	//public static Func<TState, TAction, Result<TState>> Reduce<TState, TAction>(Func<TState, TAction, Result<TState>> reducer) => reducer;
-
 	public static Builder<TState> CreateBuilder<TState>() => new Builder<TState>();
 
 	public static Func<TState, TAction, Result<TState>> Combine<TState, TAction>(params Func<TState, TAction, Result<TState>>[] reducers)
@@ -33,10 +30,5 @@ public static partial class Reducer
 			}
 			return (anyChanged, state);
 		};
-	}
-
-	public static Func<TState, Result<TState>> RootCombine<TState>(Func<TState, object, Result<TState>> reducers)
-	{
-		throw new NotImplementedException();
 	}
 }

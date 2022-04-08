@@ -55,8 +55,8 @@ var changeHeadStudentAction = new ChangeHeadStudentAction(student1);
 
 Console.WriteLine($"Original state={JsonSerializer.Serialize(school)}");
 
-// Now build a reducer that can handle both actions by allowing
-// us to pass (TState, object)
+// Now build a reducer that can handle both
+// actions by allowing us to pass (TState, object)
 var schoolReducer = Reducer.CreateBuilder<School>()
 	.Add(schoolAddStudentAchievementReducer)
 	.Add(schoolChangeHeadStudentReducer)
