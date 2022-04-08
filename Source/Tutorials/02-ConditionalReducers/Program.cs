@@ -1,4 +1,5 @@
-﻿using Morris.Immutable;
+﻿using ConditionalReducers;
+using Morris.Immutable;
 using System.Text.Json;
 
 // Create a conditional reducer.
@@ -24,7 +25,3 @@ for (int i = 0; i < 3; i++)
 //		Step=2, Changed=True, State={"Counter":2}
 //		Step=3, Changed=False, State={"Counter":2}
 Console.ReadLine();
-
-
-record CounterState(int Counter);
-record IncrementCounterAction(int Delta);

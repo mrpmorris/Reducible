@@ -1,4 +1,5 @@
 ﻿using Morris.Immutable;
+using SimpleReducers;
 using System.Text.Json;
 
 // Create a simple unconditional reducer.
@@ -21,6 +22,3 @@ for (int i = 0; i < 3; i++)
 //		Step=3, Changed=True, State={"Counter":3}
 Console.ReadLine();
 
-
-record CounterState(int Counter);
-record IncrementCounterAction(int Delta);
