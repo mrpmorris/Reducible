@@ -29,6 +29,9 @@ public static partial class Reducer
 		public Func<TState, object, Result<TState>> Build()
 		{
 			EnsureNotBuilt();
+			if (TypesAndReducers.Length == 0)
+				throw new InvalidOperationException("Must add at least one reducer to build.");
+
 			Built = true;
 
 			var dictionary = TypesAndReducers
