@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
 		<LangVersion>10</LangVersion>
 		<Nullable>enable</Nullable>
 		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\..\..\MrPMorris.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>..\..\MrPMorris.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 </Project>
