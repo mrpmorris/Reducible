@@ -8,16 +8,16 @@ using PolyMorphicReducers;
 // with a specific Id, only if they do not already
 // have that achievement.
 var studentAddAchievementReducer = Reducer
-	.Given<Student, AddStudentAchievementAction>()
-	.When((s, a) => s.Id == a.StudentId && !s.Achievements.Contains(a.Achievement))
-	.Then((s, a) => s with { Achievements = s.Achievements.Add(a.Achievement) });
+	.Given<Student, AddStudentAchievement>()
+	.When((student, delta) => student.Id == delta.StudentId && !student.Achievements.Contains(delta.Achievement))
+	.Then((student, delta) => student with { Achievements = student.Achievements.Add(delta.Achievement) });
 
 // Create a reducer for the school, which uses the previous reducer
 // on each student in its `ImmutableArray<Student> Students` property
 // to add an achievement to a student with a specific Id if they do not
 // already have that achievement.
 var schoolStudentsAddAchievementReducer = Reducer
-	.Given<School, AddStudentAchievementAction>()
+	.Given<School, AddStudentAchievement>()
 	.WhenReducedBy(x => x.Students, studentAddAchievementReducer)
 	.Then((school, students) => school with { Students = students });
 
@@ -26,7 +26,7 @@ var schoolStudentsAddAchievementReducer = Reducer
 // to add an achievement if they have the correct Id and if they do not
 // already have that achievement.
 var schoolHeadStudentAddAchievementReducer = Reducer
-	.Given<School, AddStudentAchievementAction>()
+	.Given<School, AddStudentAchievement>()
 	.WhenReducedBy(x => x.HeadStudent, studentAddAchievementReducer)
 	.Then((school, headStudent) => school with { HeadStudent = headStudent });
 
@@ -40,9 +40,9 @@ var schoolAddStudentAchievementReducer = Reducer.Combine(schoolHeadStudentAddAch
 // Create a reducer that replaces the head student
 // of the school, because Steven Cramer is too smelly.
 var schoolChangeHeadStudentReducer = Reducer
-	.Given<School, ChangeHeadStudentAction>()
-	.When((s, a) => s.HeadStudent.Id != a.Student.Id)
-	.Then((s, a) => s with { HeadStudent = a.Student });
+	.Given<School, ChangeHeadStudent>()
+	.When((student, delta) => student.HeadStudent.Id != delta.Student.Id)
+	.Then((student, delta) => student with { HeadStudent = delta.Student });
 
 var student1 = new Student(1, "Peter Morris");
 var student2 = new Student(2, "Steven Cramer");
@@ -50,8 +50,8 @@ var student2 = new Student(2, "Steven Cramer");
 var allStudents = ImmutableArray.Create<Student>(student1, student2);
 var school = new School(allStudents, HeadStudent: student2);
 
-var grantAction = new AddStudentAchievementAction(2, "Smells");
-var changeHeadStudentAction = new ChangeHeadStudentAction(student1);
+var addAchievementDelta = new AddStudentAchievement(2, "Smells");
+var chaneHeadStudentDelta = new ChangeHeadStudent(student1);
 
 
 // Now build a reducer that can handle both
@@ -64,13 +64,13 @@ var schoolReducer = Reducer.CreateBuilder<School>()
 ConsoleColor defaultColor = Console.ForegroundColor;
 var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
 
-DisplayState(0, school, false, jsonOptions, defaultColor);
+DisplayState(step: 0, school, false, jsonOptions, defaultColor);
 
-(bool changed, school) = schoolReducer(school, grantAction);
-DisplayState(1, school, changed, jsonOptions);
+(bool changed, school) = schoolReducer(school, addAchievementDelta);
+DisplayState(step: 1, school, changed, jsonOptions);
 
-(changed, school) = schoolReducer(school, changeHeadStudentAction);
-DisplayState(1, school, changed, jsonOptions);
+(changed, school) = schoolReducer(school, chaneHeadStudentDelta);
+DisplayState(step: 2, school, changed, jsonOptions);
 
 Console.ForegroundColor = defaultColor;
 Console.ReadLine();

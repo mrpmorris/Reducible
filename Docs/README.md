@@ -1,9 +1,12 @@
 # Reducible - documentation
 
+***Reducible*** is a Reducer library for [Microsoft .NET](https://dotnet.microsoft.com/)
+
 ## Reducer pattern
 
 Made popular by the JavaScript Redux library, and various other Flux pattern frameworks,
-the Reducer pattern is a very simple concept. You can take two states, and reduce them into one new state.
+the Reducer pattern is a very simple concept. You can take pieces of data (states),
+and reduce them into a single one new one.
 
 ![](./../Images/reducer-explanation-1.jpg)
 
@@ -43,3 +46,48 @@ simplify the task.
 * [Composite nested reducers](../Source/Tutorials/05-CompositeNestedReducers/README.md)
 * [Polymorphic reducers](../Source/Tutorials/06-PolymorphicReducers/README.md)
 
+## Why?
+
+Your state is your source of truth. If you want to change what is true, you have
+to do take action.
+
+Facebook notoriously had a problem with their chat feature. The notification
+at the top of the screen would show there were `X` new unread messages, but when the
+user clicked on their chat box they would see there were none.
+
+Scanning all messages to see how many are read/unread just to display `X unread`
+at the top of the screen would have been expensive, so Facebook decided to store
+the unread-count separately for efficiency. With different ways of altering the
+number of unread messages, the number started to get out of sync.
+
+*Different ways the unread count could be altered*
+* A new message is received
+* A message is read on the website
+* A notification is received that you've read a message on your phone
+* You block a user
+
+Functional reducers allow you to create your state (source of truth) in a way
+that makes it easy to prevent it from contradicting itself.
+
+Taking your initial state of having 45 read messages and 5 unread, you can reduce
+that current state with a `Delta` state indicating that message X has been read. This
+not only marks that message as read, but also changes the number of unread messages, so
+they stay in sync.
+
+Blocking a user not only marks them as blocked, but also removes all of their messages
+from your inbox, and decrements the number of unread messages.
+
+Instead of each operation altering different bits of state, reducers switch the
+responsibility around. The individual parts of the state react to actions.
+
+![](./../Images/reducer-explanation-5.jpg)
+
+In this scenario, a new addition to our friends list turns out to be a spammer. So
+we click the `[Block]` button.
+
+1. A reducer on the `Friends` state knows it needs to remove the friend.
+2. A reducer on the `Unread messages` state knows to remove that user's messages.
+3. That same reducer adjusts the `Count` based on how many messages were removed.
+4. A reducer on the `Read messages` state doesn't need to do anything.
+
+![](./../Images/reducer-explanation-6.jpg)
