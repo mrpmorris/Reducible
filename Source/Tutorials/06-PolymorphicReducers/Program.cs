@@ -1,7 +1,7 @@
 ﻿using Morris.Reducible;
 using System.Collections.Immutable;
 using System.Text.Json;
-using RootReducers;
+using PolyMorphicReducers;
 
 #region Reducers from previous example
 // Create a reducer that adds an achievement to a student
@@ -55,7 +55,7 @@ var changeHeadStudentAction = new ChangeHeadStudentAction(student1);
 
 
 // Now build a reducer that can handle both
-// actions by allowing us to pass (TState, object)
+// actions by allowing us to pass `TState` + `object`
 var schoolReducer = Reducer.CreateBuilder<School>()
 	.Add(schoolAddStudentAchievementReducer)
 	.Add(schoolChangeHeadStudentReducer)

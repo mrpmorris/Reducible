@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace RootReducers;
+namespace PolyMorphicReducers;
 
 record School(ImmutableArray<Student> Students, Student HeadStudent);
 record Student(int Id, string Name)
