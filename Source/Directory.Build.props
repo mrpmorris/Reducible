@@ -11,9 +11,9 @@
 		<PackageLicenseFile></PackageLicenseFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
-		<PackageProjectUrl>https://github.com/mrpmorris/Fluxor</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/mrpmorris/Reducible</PackageProjectUrl>
 		<PackageIconUrl />
-		<RepositoryUrl>https://github.com/mrpmorris/Fluxor</RepositoryUrl>
+		<RepositoryUrl>https://github.com/mrpmorris/Reducible</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 
 		<SignAssembly>true</SignAssembly>

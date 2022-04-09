@@ -7,10 +7,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
-		<Product>Morris.Immutable</Product>
-		<Description>An Immutable State library for optimised/reusable reducers in .NET</Description>
+		<Product>Reducible</Product>
+		<Description>A State Reducer library for .NET</Description>
 		<PackageIcon>small-logo.png</PackageIcon>
-		<PackageTags>Immutable DotNet CSharp</PackageTags>
+		<PackageTags>Immutable Reduce Reducible DotNet CSharp</PackageTags>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>..\..\MrPMorris.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>	

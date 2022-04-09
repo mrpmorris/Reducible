@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace Morris.Immutable;
+namespace Morris.Reducible;
 
 public static partial class Reducer
 {

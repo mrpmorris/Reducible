@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Morris.Immutable", "Morris.Immutable\Morris.Immutable.csproj", "{6DB01440-2C29-4DCD-96EE-6BD7C32D5954}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{05B9D02A-F1F9-46DA-9081-F9A16E073D09}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleReducers", "Tutorials\01-SimpleReducers\SimpleReducers.csproj", "{A63006A5-0938-430F-ACC8-6D2A6D0EA1B2}"
@@ -37,16 +35,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06-RootReducers", "06-RootR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RootReducers", "Tutorials\06-RootReducers\RootReducers.csproj", "{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Morris.Reducible", "Morris.Reducible\Morris.Reducible.csproj", "{EC106700-6DF4-4075-895E-31E807B5CF3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6DB01440-2C29-4DCD-96EE-6BD7C32D5954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DB01440-2C29-4DCD-96EE-6BD7C32D5954}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DB01440-2C29-4DCD-96EE-6BD7C32D5954}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DB01440-2C29-4DCD-96EE-6BD7C32D5954}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A63006A5-0938-430F-ACC8-6D2A6D0EA1B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A63006A5-0938-430F-ACC8-6D2A6D0EA1B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A63006A5-0938-430F-ACC8-6D2A6D0EA1B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,6 +67,10 @@ Global
 		{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEDDBA6F-330F-4ECE-A767-5BA42C24426C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC106700-6DF4-4075-895E-31E807B5CF3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC106700-6DF4-4075-895E-31E807B5CF3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC106700-6DF4-4075-895E-31E807B5CF3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC106700-6DF4-4075-895E-31E807B5CF3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

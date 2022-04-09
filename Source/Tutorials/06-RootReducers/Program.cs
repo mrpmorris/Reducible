@@ -1,4 +1,4 @@
-﻿using Morris.Immutable;
+﻿using Morris.Reducible;
 using System.Collections.Immutable;
 using System.Text.Json;
 using RootReducers;
@@ -53,7 +53,6 @@ var school = new School(allStudents, HeadStudent: student2);
 var grantAction = new AddStudentAchievementAction(2, "Smells");
 var changeHeadStudentAction = new ChangeHeadStudentAction(student1);
 
-Console.WriteLine($"Original state={JsonSerializer.Serialize(school)}");
 
 // Now build a reducer that can handle both
 // actions by allowing us to pass (TState, object)
@@ -62,13 +61,22 @@ var schoolReducer = Reducer.CreateBuilder<School>()
 	.Add(schoolChangeHeadStudentReducer)
 	.Build();
 
+ConsoleColor defaultColor = Console.ForegroundColor;
+var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+
+DisplayState(0, school, false, jsonOptions, defaultColor);
+
 (bool changed, school) = schoolReducer(school, grantAction);
+DisplayState(1, school, changed, jsonOptions);
+
 (changed, school) = schoolReducer(school, changeHeadStudentAction);
+DisplayState(1, school, changed, jsonOptions);
 
-Console.WriteLine($"New state={JsonSerializer.Serialize(school)}");
-//	Output:
-//		Original state={"Students":[{"Id":1,"Name":"Peter Morris","Achievements":[]},{"Id":2,"Name":"Steven Cramer","Achievements":[]}],"HeadStudent":{"Id":2,"Name":"Steven Cramer","Achievements":[]}}
-//		New state={"Students":[{"Id":1,"Name":"Peter Morris","Achievements":[]},{"Id":2,"Name":"Steven Cramer","Achievements":["Smells"]}],"HeadStudent":{"Id":1,"Name":"Peter Morris","Achievements":[]}}
-
-Console.ForegroundColor = ConsoleColor.White;
+Console.ForegroundColor = defaultColor;
 Console.ReadLine();
+
+void DisplayState(int step, School state, bool changed, JsonSerializerOptions jsonOptions, ConsoleColor? forcedColor = null)
+{
+	Console.ForegroundColor = forcedColor ?? (changed ? ConsoleColor.Cyan : defaultColor);
+	Console.WriteLine($"\r\nStep={step}, Changed={changed},\r\nState={JsonSerializer.Serialize(school, jsonOptions)}");
+}

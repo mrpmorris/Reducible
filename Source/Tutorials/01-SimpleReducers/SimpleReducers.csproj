@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Morris.Immutable\Morris.Immutable.csproj" />
+    <ProjectReference Include="..\..\Morris.Reducible\Morris.Reducible.csproj" />
   </ItemGroup>
 
 </Project>

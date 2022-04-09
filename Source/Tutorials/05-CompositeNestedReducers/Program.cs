@@ -1,4 +1,4 @@
-﻿using Morris.Immutable;
+﻿using Morris.Reducible;
 using CompositeNestedReducers;
 using System.Collections.Immutable;
 using System.Text.Json;
@@ -44,16 +44,15 @@ var school = new School(allStudents, HeadStudent: student2);
 
 var grantAction = new AddStudentAchievementAction(2, "Smells");
 
-Console.WriteLine($"Original state={JsonSerializer.Serialize(school)}");
+ConsoleColor defaultColor = Console.ForegroundColor;
+var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+Console.WriteLine($"Original state={JsonSerializer.Serialize(school, jsonOptions)}");
 for (int i = 0; i < 2; i++)
 {
 	(bool changed, school) = schoolAddStudentAchievementReducer(school, grantAction);
-	Console.ForegroundColor = changed ? ConsoleColor.Red : ConsoleColor.Green;
-	Console.WriteLine($"Step={i + 1}, Changed={changed}, State={JsonSerializer.Serialize(school)}");
+	Console.ForegroundColor = changed ? ConsoleColor.Cyan : defaultColor;
+	Console.WriteLine($"Step={i + 1}, Changed={changed}, State={JsonSerializer.Serialize(school, jsonOptions)}");
 }
-//	Output:
-//		Original state={"Students":[{"Id":1,"Name":"Peter Morris","Achievements":[]},{"Id":2,"Name":"Steven Cramer","Achievements":[]}],"HeadStudent":{"Id":2,"Name":"Steven Cramer","Achievements":[]}}
-//		Step=1, Changed=True, State={"Students":[{"Id":1,"Name":"Peter Morris","Achievements":[]},{"Id":2,"Name":"Steven Cramer","Achievements":["Smells"]}],"HeadStudent":{"Id":2,"Name":"Steven Cramer","Achievements":["Smells"]}}
-//		Step=2, Changed=False, State={"Students":[{"Id":1,"Name":"Peter Morris","Achievements":[]},{"Id":2,"Name":"Steven Cramer","Achievements":["Smells"]}],"HeadStudent":{"Id":2,"Name":"Steven Cramer","Achievements":["Smells"]}}
-Console.ForegroundColor = ConsoleColor.White;
+
+Console.ForegroundColor = defaultColor;
 Console.ReadLine();

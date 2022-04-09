@@ -1,1 +1,1 @@
-dotnet build Source\Morris.Immutable.csproj -c Release
+dotnet build Source\Morris.Reducible.csproj -c Release
