@@ -54,6 +54,14 @@ for (int i = 0; i < 3; i++)
 Console.ReadLine();
 ```
 
+The state in this example changes like so...
+```
+Original state={ "Counter": 0 }
+Step=1, Changed=True, State={ "Counter": 1 }
+Step=2, Changed=True, State={ "Counter": 2 }
+Step=3, Changed=True, State={ "Counter": 3 }
+```
+
 ### Reducer.Result
 
 In addition to the new state, ***Reducible*** reducers also return a `bool` flag
@@ -63,5 +71,7 @@ Although it is not used in this example, it is a very important part of the patt
 ***Reducible*** uses when making a composite / tree of reducers. It allows a reducer at
 the very top of a complex tree of reducers know whether or not for optimisation purposes
 it can simply return the original state when unmodified.
+
+`Reducible.Result<TState>` can be deconstructed to `(bool changed, TState newState)`.
 
 

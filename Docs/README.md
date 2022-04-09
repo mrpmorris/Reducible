@@ -1,7 +1,5 @@
 # Reducible - documentation
 
-***Reducible*** is a Reducer library for [Microsoft .NET](https://dotnet.microsoft.com/)
-
 ## Reducer pattern
 
 Made popular by the JavaScript Redux library, and various other Flux pattern frameworks,
