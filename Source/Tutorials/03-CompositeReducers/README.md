@@ -128,3 +128,7 @@ Step=4, Changed=False, State={ "EvenValue": 2, "OddValue": 3 }
 Note that the composite reducer returns `false` when the delta `UpdateValues(4)` state is reduced. This is because both the
 `oddNumberReducer` and `evenNumberReducer` that it composes into a single reducer have ***When*** clauses that prevent
 them from reducing values as high as `4`.
+
+### Summary
+Combining reducers allows us to keep our individual reducers small and focused on a
+single goal, whilst allowing for complex state changes.
