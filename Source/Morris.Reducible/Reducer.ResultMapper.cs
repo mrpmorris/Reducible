@@ -4,21 +4,21 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public class ResultMapper<TState, TAction>
+	public class ResultMapper<TState, TDelta>
 	{
-		private readonly Func<TState, TAction, bool> Condition;
+		private readonly Func<TState, TDelta, bool> Condition;
 
-		internal ResultMapper(Func<TState, TAction, bool> condition)
+		internal ResultMapper(Func<TState, TDelta, bool> condition)
 		{
 			Condition = condition ?? throw new ArgumentNullException(nameof(condition));
 		}
 
-		public Func<TState, TAction, Result<TState>> Then(Func<TState, TAction, TState> reducer)
+		public Func<TState, TDelta, Result<TState>> Then(Func<TState, TDelta, TState> reducer)
 		{
 			if (reducer is null)
 				throw new ArgumentNullException(nameof(reducer));
 			
-			return (TState state, TAction action) => Condition(state, action) ? (true, reducer(state, action)) : (false, state);
+			return (TState state, TDelta delta) => Condition(state, delta) ? (true, reducer(state, delta)) : (false, state);
 		}
 	}
 }

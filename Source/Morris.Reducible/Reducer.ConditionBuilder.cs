@@ -5,13 +5,13 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public class ConditionBuilder<TState, TAction>
+	public class ConditionBuilder<TState, TDelta>
 	{
 		internal ConditionBuilder() { }
 
-		public ResultMapper<TState, TAction> When(Func<TState, TAction, bool> condition) => new ResultMapper<TState, TAction>(condition);
+		public ResultMapper<TState, TDelta> When(Func<TState, TDelta, bool> condition) => new ResultMapper<TState, TDelta>(condition);
 
-		public Func<TState, TAction, Result<TState>> Then(Func<TState, TAction, Result<TState>> reducer)
+		public Func<TState, TDelta, Result<TState>> Then(Func<TState, TDelta, Result<TState>> reducer)
 		{
 			if (reducer is null)
 				throw new ArgumentNullException(nameof(reducer));
@@ -19,16 +19,16 @@ public static partial class Reducer
 			return reducer;
 		}
 
-		public ObjectResultMapper<TState, TSubState, TAction> WhenReducedBy<TSubState>(
+		public ObjectResultMapper<TState, TSubState, TDelta> WhenReducedBy<TSubState>(
 			Func<TState, TSubState> subStateSelector,
-			Func<TSubState, TAction, Result<TSubState>> reducer)
+			Func<TSubState, TDelta, Result<TSubState>> reducer)
 		=>
-			new ObjectResultMapper<TState, TSubState, TAction>(subStateSelector, reducer);
+			new ObjectResultMapper<TState, TSubState, TDelta>(subStateSelector, reducer);
 
-		public ImmutableArrayResultMapper<TState, TElement, TAction> WhenReducedBy<TElement>(
+		public ImmutableArrayResultMapper<TState, TElement, TDelta> WhenReducedBy<TElement>(
 			Func<TState, ImmutableArray<TElement>> subStateSelector,
-			Func<TElement, TAction, Result<TElement>> reducer)
+			Func<TElement, TDelta, Result<TElement>> reducer)
 			=>
-				new ImmutableArrayResultMapper<TState, TElement, TAction>(subStateSelector, reducer);
+				new ImmutableArrayResultMapper<TState, TElement, TDelta>(subStateSelector, reducer);
 	}
 }

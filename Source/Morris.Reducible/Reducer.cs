@@ -6,11 +6,11 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public static ConditionBuilder<TState, TAction> Given<TState, TAction>() => new ConditionBuilder<TState, TAction>();
+	public static ConditionBuilder<TState, TDelta> Given<TState, TDelta>() => new ConditionBuilder<TState, TDelta>();
 
 	public static Builder<TState> CreateBuilder<TState>() => new Builder<TState>();
 
-	public static Func<TState, TAction, Result<TState>> Combine<TState, TAction>(params Func<TState, TAction, Result<TState>>[] reducers)
+	public static Func<TState, TDelta, Result<TState>> Combine<TState, TDelta>(params Func<TState, TDelta, Result<TState>>[] reducers)
 	{
 		if (reducers is null)
 			throw new ArgumentNullException(nameof(reducers));
@@ -20,12 +20,12 @@ public static partial class Reducer
 			throw new ArgumentException(paramName: nameof(reducers), message: "Reducers cannot be null.");
 
 		var allReducers = reducers.ToImmutableArray();
-		return (state, action) =>
+		return (state, delta) =>
 		{
 			bool anyChanged = false;
 			for (int o = 0; o < allReducers.Length; o++)
 			{
-				(bool changed, state) = allReducers[o](state, action);
+				(bool changed, state) = allReducers[o](state, delta);
 				anyChanged |= changed;
 			}
 			return (anyChanged, state);
