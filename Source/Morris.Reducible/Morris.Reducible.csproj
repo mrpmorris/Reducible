@@ -7,7 +7,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
-		<Product>Reducible</Product>
+		<PackageId>Reducible</PackageId>
+		<Product>Morris.Reducible</Product>
 		<Description>A State Reducer library for .NET</Description>
 		<PackageIcon>small-logo.png</PackageIcon>
 		<PackageTags>Immutable Reduce Reducible DotNet CSharp</PackageTags>
