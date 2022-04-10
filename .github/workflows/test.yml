@@ -43,6 +43,7 @@ jobs:
 
     # 3) Restore the dependencies and tools of a project or solution.
     - name: Install dependencies
+      working-directory: ./Source
       run: dotnet restore
 
     # 4) Build a project or solution and all of its dependencies.
