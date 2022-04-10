@@ -49,7 +49,7 @@ jobs:
     # 4) Build a project or solution and all of its dependencies.
     - name: Build
       working-directory: ./Source
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Debug --no-restore
 
     # 5) Test a project or solution.
     - name: Test
