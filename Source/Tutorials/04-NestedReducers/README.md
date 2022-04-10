@@ -4,7 +4,7 @@
 So far we have composed reducers horizontally, meaning we combined reducers that
 work on the same `TState` and same `TDelta`.
 
-This tutorial will demonstrate how to compose reducers vertically.
+This tutorial will demonstrate how to reuse reducers vertically.
 
 
 ### Instructions
@@ -26,7 +26,7 @@ record AddStudentAchievement(int StudentId, string Achievement);
 ![](./../../../Images/4-tree-state.jpg)
 
 
-#### Requirements
+### Requirements
 We have a school with zero to many students. We need to ensure that the student
 identified in the `AddStudentAchievement` delta is added to the correct student.
 
@@ -39,7 +39,7 @@ that achievement, then we need
 3. Finally, we will need a new `School` state that holds a reference to the
    new collection of students.
 
-### Step 1 - Student reducer
+#### Step 1 - Student reducer
 
 Add a reducer to combine the `Student` state with the `AddStudentAchievement` delta.
 
@@ -55,7 +55,7 @@ var studentAddAchievementReducer = Reducer
 the student doesn't already have the achievement specified in the `AddStudentAchievement.Achievement`
 * **Then** we need a new student state based on the current state, but with the achievement added.
 
-#### Use of Immutable* classes
+##### Use of Immutable* classes
 Note the use of `ImmutableArray` and `ImmutableHashSet` in this example. These classes are optimised for creating new collections
 based on the original.
 
@@ -76,7 +76,7 @@ all of the original nodes except for
 1. The node that has been replaced.
 2. The top node that holds references to those nodes.
 
-### Step 2 - School reducer
+#### Step 2 - School reducer
 
 Now that we have a conditional reducer for adding an achievement to a `Student` we need a reducer for our school. We want to
 keep our reducers as focused as possible and a reducer that operates on a `School` state but modifies `School.Students` is
@@ -129,7 +129,8 @@ for (int i = 0; i < 2; i++)
 }
 ```
 
-The state in this example changes as follows, note how when Steven Cramer's state does not change, the school's doesn't either.
+The state in this example changes as follows, note how when Steven Cramer's state
+does not change, the school's state doesn't change either.
 
 ```
 Original state={
@@ -181,6 +182,7 @@ Step=2, Changed=False, State={
 ```
 
 ### Summary
-Nesting reducers allows us to keep our reducers concerned only on a single state type. A `School` reducer should not modify
-`Student` state directly, as this would require a reducer of one type having to know intimate details about another
-class's state.
+1. Nesting reducers allows us to keep our reducers focused only on a single state type.
+2. A reducer that contains other complex types should use a nested reducer rather than modifying that state directly.
+3. Avoid a reducer having to know intimate details about another class's state.
+4. Nesting existing reducers allows us to keep our state changes consistent throughout large and complex state trees.
