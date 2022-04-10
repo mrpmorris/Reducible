@@ -4,11 +4,12 @@ namespace Morris.Reducible.Tests
 {
 	public class ReducerTests
     {
-	    record CounterState(int Counter);
-	    record IncrementCounter(int Amount);
+	    private record CounterState(int Counter);
+	    private record IncrementCounter(int Amount);
+
 
 		[Fact]
-	    public void SimpleReducerTest()
+	    public void ReducerUpdatesStateWhenInvoked()
 	    {
 			//Given
 			var initialState = new CounterState(0);
@@ -26,7 +27,7 @@ namespace Morris.Reducible.Tests
 	    }	
 	    
 	    [Fact]
-	    public void ConditionalReducerModifysStateWhenConditionPasses()
+	    public void ReducerUpdatesStateWhenInvokedWithPassingCondition()
 	    {
 			//Given
 			var initialState = new CounterState(0);
@@ -45,7 +46,7 @@ namespace Morris.Reducible.Tests
 	    }
 
 	    [Fact]
-	    public void ConditionalReducerDoesNotModifyStateWhenConditionFails()
+	    public void ReducerDoesNotUpdateStateWhenInvokedWithFailingCondition()
 	    {
 		    //Given
 		    var initialState = new CounterState(0);
