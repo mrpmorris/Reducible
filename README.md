@@ -25,7 +25,7 @@ Which includes tutorials that are numbered in an order recommended for learning
 
 ## Installation
 You can download the latest release / pre-release NuGet packages from the official
-***Reducible*** [Nuget page](https://www.nuget.org/packages/Reducibe)
+***Reducible*** [Nuget page](https://www.nuget.org/packages/Reducible/)
 
 ## Release notes
 See the [Releases page](./Docs/releases.md) for release history.
