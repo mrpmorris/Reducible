@@ -146,6 +146,14 @@ var schoolChangeHeadStudentReducer = Reducer
   .When((school, delta) => school.HeadStudent.Id != delta.Student.Id)
   .Then((student, delta) => student with { HeadStudent = delta.Student });
 
+// Now build a reducer that can handle both
+// `Delta` types by allowing us to pass `TState` + `object`
+var schoolReducer = Reducer.CreateBuilder<School>()
+  .Add(schoolAddStudentAchievementReducer)
+  .Add(schoolChangeHeadStudentReducer)
+  .Build();
+
+
 var student1 = new Student(1, "Peter Morris");
 var student2 = new Student(2, "Steven Cramer");
 
@@ -154,15 +162,6 @@ var school = new School(allStudents, HeadStudent: student2);
 
 var addAchievementDelta = new AddStudentAchievement(2, "Smells");
 var changeHeadStudentDelta = new ChangeHeadStudent(student1);
-
-
-// Now build a reducer that can handle both
-// `Delta` types by allowing us to pass `TState` + `object`
-var schoolReducer = Reducer.CreateBuilder<School>()
-  .Add(schoolAddStudentAchievementReducer)
-  .Add(schoolChangeHeadStudentReducer)
-  .Build();
-
 
 (bool changed, school) = schoolReducer(school, addAchievementDelta);
 (changed, school) = schoolReducer(school, changeHeadStudentDelta);
