@@ -14,6 +14,7 @@
 		<PackageTags>Immutable Reduce Reducible DotNet CSharp</PackageTags>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>..\..\MrPMorris.snk</AssemblyOriginatorKeyFile>
+		<PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
 	</PropertyGroup>	
 
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
