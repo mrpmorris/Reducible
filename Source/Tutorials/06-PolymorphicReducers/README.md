@@ -273,3 +273,7 @@ State={
 2. You can pass as many existing reducers as you wish, but they must all have the same `TState` type.
 2. The signature of the reducer returned will be `Func<TState, object, TState>`.
 3. It is possible to reduce a `Delta` of **any** class type into this reducer, any type without a reducer will have no effect.
+
+In only a few lines of code (most if it is comments) we were able to create the following state system.
+
+![](./../../../Images/6-polymorphic-reducer-2.jpg)
