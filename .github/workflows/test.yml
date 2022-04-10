@@ -31,7 +31,6 @@ jobs:
 
     # Each job run contains these five steps
     steps:
-
     # 1) Check out the source code so that the workflow can access it.
     - uses: actions/checkout@v2
 
@@ -48,8 +47,10 @@ jobs:
 
     # 4) Build a project or solution and all of its dependencies.
     - name: Build
+      working-directory: ./Source
       run: dotnet build --configuration Release --no-restore
 
     # 5) Test a project or solution.
     - name: Test
+      working-directory: ./Source
       run: dotnet test --no-restore --verbosity normal
