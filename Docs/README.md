@@ -47,7 +47,7 @@ simplify the task.
 ## Why?
 
 Your state is your source of truth. If you want to change what is true, you have
-to do take action.
+to take action.
 
 Facebook notoriously had a problem with their chat feature. The notification
 at the top of the screen would show there were `X` new unread messages, but when the
