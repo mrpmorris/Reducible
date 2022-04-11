@@ -1,4 +1,5 @@
 ﻿# Reducible
+![](./../../../images/small-logo.png)
 ## Simple reducers
 ### Goal
 This tutorial will demonstrate how to create a reducer that will combine

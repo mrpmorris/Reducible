@@ -1,4 +1,5 @@
 # Reducible - documentation
+![](./../images/small-logo.png)
 
 ## Reducer pattern
 
