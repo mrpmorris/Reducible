@@ -14,12 +14,10 @@ create reducers that can reduce a specific `Delta` type.
 This tutorial will demonstrate how we can also take reducers that work on different `Delta` states and combine them into a single
 reducer that can accept any type of `Delta` and execute only the reducers defined to handle that `Delta` state type.
 
-
 ### Requirements
-We now need the ability to change the `HeadStudent` property to our `School`. If the student identified in
-the `Delta` is not already the `HeadStudent` of our school then our reducer should. Create a new
-`School` state that holds a reference to the the `HeadStudent` state.
-
+We now need the ability to change the `HeadStudent` property of our `School`. If the student identified in
+the `Delta` is not already the `HeadStudent` our reducer should create a new
+`School` state with the `HeadStudent` from the Delta state.
 
 ### Instructions
 
@@ -39,6 +37,27 @@ record ChangeHeadStudent(Student Student);
 These are the same as in [Tutorial 5](./../05-CompositeNestedReducers/README.md), but with the addition of a
 `ChangeHeadStudent` delta which we will use to change the school's `HeadStudent`.
 
+Add the reducers from Tutorial 5 as follows:
+
+```c#
+var studentAddAchievementReducer = Reducer
+	.Given<Student, AddStudentAchievement>()
+	.When((student, delta) => student.Id == delta.StudentId && !student.Achievements.Contains(delta.Achievement))
+	.Then((student, delta) => student with { Achievements = student.Achievements.Add(delta.Achievement) });
+
+var schoolStudentsAddAchievementReducer = Reducer
+	.Given<School, AddStudentAchievement>()
+	.WhenReducedBy(x => x.Students, studentAddAchievementReducer)
+	.Then((school, students) => school with { Students = students });
+
+var schoolHeadStudentAddAchievementReducer = Reducer
+	.Given<School, AddStudentAchievement>()
+	.WhenReducedBy(x => x.HeadStudent, studentAddAchievementReducer)
+	.Then((school, headStudent) => school with { HeadStudent = headStudent });
+
+var schoolAddStudentAchievementReducer = Reducer.Combine(schoolHeadStudentAddAchievementReducer, schoolStudentsAddAchievementReducer);
+```
+
 **State diagram**
 
 ![](./../../../Images/6-polymorphic-reducer.jpg)
@@ -46,7 +65,7 @@ These are the same as in [Tutorial 5](./../05-CompositeNestedReducers/README.md)
 
 #### School change head student reducer
 
-Add a reducer to combine the `School` state `ChangeHeadStudent` delta.
+Now add a reducer to combine the `School` state `ChangeHeadStudent` delta.
 
 ```c#
 var schoolChangeHeadStudentReducer = Reducer
@@ -55,19 +74,19 @@ var schoolChangeHeadStudentReducer = Reducer
   .Then((student, delta) => student with { HeadStudent = delta.Student });
 ```
 
-* **Given** the inputs are a `School` state and an `ChangeHeadStudent` delta
-* **When** the school has a `HeadStudent` that has a different `Id` to one in the delta
+* **Given** the inputs are a `School` state and a `ChangeHeadStudent` delta
+* **When** the school has a `HeadStudent` that has a different `Id` to the one in the delta
 * **Then** we need a new `School` state based on the current state, but with the `HeadStudent` state replaced.
 
 #### Composing the two school reducers
 
-Now we have two reducers that work on the same `TState` type, but expect different `Delta` types. Because they expect different
+Now we have two reducers that work on the same `State` type, but expect different `Delta` types. Because they expect different
 `Delta` types, this means consumers of our reducers won't make the mistake of calling one without the other, because you would
 call one *or* the other depending on what you wish to change.
 
-It would be idea if we could combine these top-level `School` reducers into a single reducer. This way, consumers would know there
-is only a single reducer for `School` they can pass any `Delta` type to, and won't have to dig into our consumers in order to
-find which one they should be calling.
+It would be ideal if we could combine these top-level `School` reducers into a single reducer. This way, consumers would know there
+is only a single reducer for `School` to which they can pass any `Delta` type, and won't have to dig to find which one they should
+be calling.
 
 We could even make all reducers internal to our assembly except the ones the consumer should access.
 
@@ -75,12 +94,12 @@ The signatures for these two `School` reducers are as follows
 * `schoolAddStudentAchievementReducer` **is of type** `Func<School, AddStudentAchievement, School>`
 * `schoolChangeHeadStudentReducer` **is of type** `Func<School, ChangeHeadStudent, School>`
 
-And `Reducer.Combine` expects a `params` array of two or more `Func` of the **same** type, so cannot combine them.
+And `Reducer.Combine` expects a `params` array of two or more `Func` of the **same** type, so it cannot combine them.
 
 
 #### Using a Reducer.CreateBuilder&lt;TState&gt;
 
-Using the `Reducer.Builder<TState>` method it is possible to combine reducers with various `Delta` types as long
+Using the `Add` method on `Reducer.Builder<TState>` it is possible to combine reducers with various `Delta` types as long
 as they receive and return the same `TState` type. In our case this would be
 
 * Func<**School**, *AddStudentAchievement*, **School**>
@@ -95,11 +114,10 @@ var schoolReducer = Reducer.CreateBuilder<School>()
   .Build();
 ```
 
-Combining these reducers with `Reducer.CreateBuilder<TState>` gives returns a function with a signature
-`Func<TState, object, TState`. Meaning we can pass objects of any type as the `Delta`, and the `TState` will only be
-affected if there is a reducer that reduces that `Delta` state into the `TState`. The `Delta` state can be an object of
+Combining these reducers with `Reducer.CreateBuilder<TState>` returns a function with a signature of
+`Func<TState, object, TState`. Meaning passing objects of any type as the `Delta`, and the `TState` will only have an
+affect if there is a reducer that reduces that `Delta` state into the `TState`. The `Delta` state can be an object of
 any form, making it a polymorphic reducer.
-
 
 ### Writing the consuming code
 
@@ -147,14 +165,6 @@ var schoolChangeHeadStudentReducer = Reducer
   .When((school, delta) => school.HeadStudent.Id != delta.Student.Id)
   .Then((student, delta) => student with { HeadStudent = delta.Student });
 
-// Now build a reducer that can handle both
-// `Delta` types by allowing us to pass `TState` + `object`
-var schoolReducer = Reducer.CreateBuilder<School>()
-  .Add(schoolAddStudentAchievementReducer)
-  .Add(schoolChangeHeadStudentReducer)
-  .Build();
-
-
 var student1 = new Student(1, "Peter Morris");
 var student2 = new Student(2, "Steven Cramer");
 
@@ -164,6 +174,15 @@ var school = new School(allStudents, HeadStudent: student2);
 var addAchievementDelta = new AddStudentAchievement(2, "Smells");
 var changeHeadStudentDelta = new ChangeHeadStudent(student1);
 
+
+// Now build a reducer that can handle both
+// `Delta` types by allowing us to pass `TState` + `object`
+var schoolReducer = Reducer.CreateBuilder<School>()
+  .Add(schoolAddStudentAchievementReducer)
+  .Add(schoolChangeHeadStudentReducer)
+  .Build();
+
+
 (bool changed, school) = schoolReducer(school, addAchievementDelta);
 (changed, school) = schoolReducer(school, changeHeadStudentDelta);
 (changed, school) = schoolReducer(school, "We don't have a reducer for a simple string delta, so this does nothing");
@@ -172,7 +191,7 @@ var changeHeadStudentDelta = new ChangeHeadStudent(student1);
 The state in this example changes as follows, note how a single reducer is used to reduce any `Delta` state, and how
 trying to reduce with an unknown `Delta` state has no effect. Not only does this make it possible to dispatch all `Delta`
 states to a single reducer for School, but also gives us the ability to create a single `root` reducer for our whole state,
-so our consumers of our reducers never need to worry about which reducer they should use.
+so the consumers of our reducers never need to worry about which reducer they should use.
 
 ```
 Step=0, Changed=False,
