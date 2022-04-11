@@ -1,5 +1,5 @@
 ﻿# Reducible
-![](./../../../images/small-logo.png)
+![](./../../../Images/small-logo.png)
 ## Polymorphic reducers
 ### Goal
 We've now seen how to combine reducers horizontally on the same `TState` type and the same `Delta` class type.

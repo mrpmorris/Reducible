@@ -1,5 +1,5 @@
 ﻿# Reducible
-![](./../../../images/small-logo.png)
+![](./../../../Images/small-logo.png)
 ## Composite nested reducers
 ### Goal
 We've now seen how to compose reducers horizontally, and reuse reducers vertically

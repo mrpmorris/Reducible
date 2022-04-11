@@ -1,5 +1,5 @@
 # Reducible
-![](./images/small-logo.png)
+![](./Images/small-logo.png)
 
 ***Reducible*** is a Reducer library for [Microsoft .NET](https://dotnet.microsoft.com/)
 

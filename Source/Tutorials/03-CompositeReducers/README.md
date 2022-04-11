@@ -1,5 +1,5 @@
 ﻿# Reducible
-![](./../../../images/small-logo.png)
+![](./../../../Images/small-logo.png)
 ## Composite reducers
 ### Goal
 This tutorial will demonstrate how take multiple reducers that operate on

@@ -1,5 +1,5 @@
 ﻿# Reducible
-![](./../../../images/small-logo.png)
+![](./../../../Images/small-logo.png)
 ## Conditional reducers
 ### Goal
 This tutorial will demonstrate how to create a reducer that will only reduce the

@@ -1,5 +1,5 @@
 ﻿# Reducible
-![](./../../../images/small-logo.png)
+![](./../../../Images/small-logo.png)
 ## Nested reducers
 ### Goal
 So far we have composed reducers horizontally, meaning we combined reducers that
