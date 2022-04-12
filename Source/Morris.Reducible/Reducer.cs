@@ -23,9 +23,10 @@ public static partial class Reducer
 		return (state, delta) =>
 		{
 			bool anyChanged = false;
-			foreach (var reducer in allReducers)
+			for (int o = 0; o < allReducers.Length; o++)
 			{
-				anyChanged |= reducer(state, delta).Changed;
+				(bool changed, state) = allReducers[o](state, delta);
+				anyChanged |= changed;
 			}
 			return (anyChanged, state);
 		};

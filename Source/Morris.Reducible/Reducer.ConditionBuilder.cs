@@ -9,7 +9,8 @@ public static partial class Reducer
 	{
 		internal ConditionBuilder() { }
 
-		public ResultMapper<TState, TDelta> When(Func<TState, TDelta, bool> condition) => new(condition);
+		public ResultMapper<TState, TDelta> When(Func<TState, TDelta, bool> condition) =>
+			new ResultMapper<TState, TDelta>(condition);
 
 		public Func<TState, TDelta, Result<TState>> Then(Func<TState, TDelta, Result<TState>> reducer)
 		{
@@ -21,10 +22,10 @@ public static partial class Reducer
 
 		public ObjectResultMapper<TState, TSubState, TDelta> WhenReducedBy<TSubState>(
 			Func<TState, TSubState> subStateSelector, Func<TSubState, TDelta, Result<TSubState>> reducer) =>
-			new(subStateSelector, reducer);
+			new ObjectResultMapper<TState, TSubState, TDelta>(subStateSelector, reducer);
 
 		public ImmutableArrayResultMapper<TState, TElement, TDelta> WhenReducedBy<TElement>(
 			Func<TState, ImmutableArray<TElement>> subStateSelector, Func<TElement, TDelta, Result<TElement>> reducer) =>
-			new(subStateSelector, reducer);
+			new ImmutableArrayResultMapper<TState, TElement, TDelta>(subStateSelector, reducer);
 	}
 }
