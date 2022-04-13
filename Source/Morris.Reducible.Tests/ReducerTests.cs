@@ -19,7 +19,7 @@ namespace Morris.Reducible.Tests
 			 .Then((state, delta) => (true, state with { Counter = state.Counter + delta.Amount}));
 
 			//When
-			(bool changed, var counterState) = counterIncrementCounterReducer.Invoke(initialState, action);
+			(bool changed, var counterState) = counterIncrementCounterReducer(initialState, action);
 
 			//Then
 			Assert.True(changed);
@@ -38,7 +38,7 @@ namespace Morris.Reducible.Tests
 				.Then((state, delta) => state with { Counter = state.Counter + delta.Amount });
 
 			//When
-			(bool changed, var counterState) = counterIncrementCounterReducer.Invoke(initialState, action);
+			(bool changed, var counterState) = counterIncrementCounterReducer(initialState, action);
 
 			//Then
 			Assert.True(changed);
@@ -57,7 +57,7 @@ namespace Morris.Reducible.Tests
 			    .Then((state, delta) => state with { Counter = state.Counter + delta.Amount });
 
 		    //When
-		    (bool changed, var counterState) = counterIncrementCounterReducer.Invoke(initialState, action);
+		    (bool changed, var counterState) = counterIncrementCounterReducer(initialState, action);
 
 		    //Then
 		    Assert.False(changed);
@@ -80,7 +80,7 @@ namespace Morris.Reducible.Tests
 		    var combinedReducer = Reducer.Combine(counterIncrementCounterReducer1, counterIncrementCounterReducer2);
 
 			//When
-			(bool changed, var counterState) = combinedReducer.Invoke(initialState, action);
+			(bool changed, var counterState) = combinedReducer(initialState, action);
 
 		    //Then
 		    Assert.True(changed);
