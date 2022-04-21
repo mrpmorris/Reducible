@@ -4,7 +4,7 @@
 ***Reducible*** is a Reducer library for [Microsoft .NET](https://dotnet.microsoft.com/)
 
 [![Join the chat at https://gitter.im/mrpmorris/reducible](https://badges.gitter.im/mrpmorris/reducible.svg)](https://gitter.im/mrpmorris/reducible?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![NuGet version (Fluxor)](https://img.shields.io/nuget/v/Fluxor.svg?style=flat-square)](https://www.nuget.org/packages/Fluxor/)
+[![NuGet version (Reducible)](https://img.shields.io/nuget/v/Reducible.svg?style=flat-square)](https://www.nuget.org/packages/Reducible/)
 
 ## Reducer pattern
 
