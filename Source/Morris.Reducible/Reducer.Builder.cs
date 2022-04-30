@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
 namespace Morris.Reducible;
@@ -12,9 +11,12 @@ public static partial class Reducer
 	public class Builder<TState>
 	{
 		private bool Built;
-		private ImmutableArray<KeyValuePair<Type, Func<TState, object, Result<TState>>>> TypesAndReducers;
+		private List<KeyValuePair<Type, Func<TState, object, Result<TState>>>> TypesAndReducers;
 
-		internal Builder() => TypesAndReducers = ImmutableArray.Create<KeyValuePair<Type, Func<TState, object, Result<TState>>>>();
+		internal Builder()
+		{
+			TypesAndReducers = new();
+		}
 
 		public Builder<TState> Add<TDelta>(Func<TState, TDelta, Result<TState>> reducer)
 		{
@@ -22,14 +24,14 @@ public static partial class Reducer
 				throw new ArgumentNullException(nameof(reducer));
 
 			EnsureNotBuilt();
-			TypesAndReducers = TypesAndReducers.Add(new(typeof(TDelta), (state, delta) => reducer(state, (TDelta)delta)));
+			TypesAndReducers.Add(new(typeof(TDelta), (state, delta) => reducer(state, (TDelta)delta)));
 			return this;
 		}
 
 		public Func<TState, object, Result<TState>> Build()
 		{
 			EnsureNotBuilt();
-			if (TypesAndReducers.Length == 0)
+			if (TypesAndReducers.Count == 0)
 				throw new InvalidOperationException("Must add at least one reducer to build.");
 
 			Built = true;
@@ -65,6 +67,5 @@ public static partial class Reducer
 			if (Built)
 				throw new InvalidOperationException("Reducer has already been built.");
 		}
-
 	}
 }
