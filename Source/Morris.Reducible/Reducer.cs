@@ -13,25 +13,26 @@ public static partial class Reducer
 	//public static CompositeBuilder<TState> CreateCompositeBuilder<TState>() =>
 	//	new CompositeBuilder<TState>();
 
-	//public static Func<TState, TDelta, Result<TState>> Combine<TState, TDelta>(params Func<TState, TDelta, Result<TState>>[] reducers)
-	//{
-	//	if (reducers is null)
-	//		throw new ArgumentNullException(nameof(reducers));
-	//	if (reducers.Length < 2)
-	//		throw new ArgumentException(paramName: nameof(reducers), message: "At least two reducers are required.");
-	//	if (reducers.Any(x => x is null))
-	//		throw new ArgumentException(paramName: nameof(reducers), message: "Reducers cannot be null.");
+	public static Func<TState, TDelta, ReducerResult<TState>> Combine<TState, TDelta>(
+		params Func<TState, TDelta, ReducerResult<TState>>[] reducers)
+	{
+		if (reducers is null)
+			throw new ArgumentNullException(nameof(reducers));
+		if (reducers.Length < 2)
+			throw new ArgumentException(paramName: nameof(reducers), message: "At least two reducers are required.");
+		if (reducers.Any(x => x is null))
+			throw new ArgumentException(paramName: nameof(reducers), message: "Reducers cannot be null.");
 
-	//	var allReducers = reducers.ToImmutableArray();
-	//	return (state, delta) =>
-	//	{
-	//		bool anyChanged = false;
-	//		for (int o = 0; o < allReducers.Length; o++)
-	//		{
-	//			(bool changed, state) = allReducers[o](state, delta);
-	//			anyChanged |= changed;
-	//		}
-	//		return (anyChanged, state);
-	//	};
-	//}
+		var allReducers = reducers.ToImmutableArray();
+		return (state, delta) =>
+		{
+			bool anyChanged = false;
+			for (int o = 0; o < allReducers.Length; o++)
+			{
+				(bool changed, state) = allReducers[o](state, delta);
+				anyChanged |= changed;
+			}
+			return (anyChanged, state);
+		};
+	}
 }
