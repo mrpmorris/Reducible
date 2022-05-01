@@ -46,7 +46,7 @@ var schoolChangeHeadStudentReducer = Reducer
 
 // Now build a reducer that can handle both
 // Delta types by allowing us to pass `TState` + `object`
-var schoolReducer = Reducer.CreateBuilder<School>()
+var schoolReducer = Reducer.CreateCompositeBuilder<School>()
 	.Add(schoolAddStudentAchievementReducer)
 	.Add(schoolChangeHeadStudentReducer)
 	.Build();
