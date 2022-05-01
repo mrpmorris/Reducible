@@ -6,19 +6,19 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public static Builder<TState> New<TState>() => new Builder<TState>();
+	public static CompositeBuilder<TState> New<TState>() => new CompositeBuilder<TState>();
 
-	public class Builder<TState>
+	public class CompositeBuilder<TState>
 	{
 		private bool Built;
 		private List<KeyValuePair<Type, Func<TState, object, Result<TState>>>> TypesAndReducers;
 
-		internal Builder()
+		internal CompositeBuilder()
 		{
 			TypesAndReducers = new();
 		}
 
-		public Builder<TState> Add<TDelta>(Func<TState, TDelta, Result<TState>> reducer)
+		public CompositeBuilder<TState> Add<TDelta>(Func<TState, TDelta, Result<TState>> reducer)
 		{
 			if (reducer is null)
 				throw new ArgumentNullException(nameof(reducer));
