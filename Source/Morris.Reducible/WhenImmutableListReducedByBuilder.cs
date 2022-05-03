@@ -3,15 +3,15 @@ using System.Collections.Immutable;
 
 namespace Morris.Reducible;
 
-public class WhenImmutableArrayReducedByBuilder<TState, TElement, TDelta>
+public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
 {
 	private readonly Builder<TState, TDelta> SourceBuilder;
-	private readonly Func<TState, ImmutableArray<TElement>> SubStateSelector;
+	private readonly Func<TState, ImmutableList<TElement>> SubStateSelector;
 	private readonly Func<TElement, TDelta, ReducerResult<TElement>> ElementReducer;
 
-	internal WhenImmutableArrayReducedByBuilder(
+	internal WhenImmutableListReducedByBuilder(
 		Builder<TState, TDelta> sourceBuilder,
-		Func<TState, ImmutableArray<TElement>> subStateSelector,
+		Func<TState, ImmutableList<TElement>> subStateSelector,
 		Func<TElement, TDelta, ReducerResult<TElement>> elementReducer)
 	{
 		SourceBuilder = sourceBuilder ?? throw new ArgumentNullException(nameof(sourceBuilder));
@@ -19,28 +19,28 @@ public class WhenImmutableArrayReducedByBuilder<TState, TElement, TDelta>
 		ElementReducer = elementReducer ?? throw new ArgumentNullException(nameof(elementReducer));
 	}
 
-	public Func<TState, TDelta, ReducerResult<TState>> Then(Func<TState, ImmutableArray<TElement>, TState> mapper)
+	public Func<TState, TDelta, ReducerResult<TState>> Then(Func<TState, ImmutableList<TElement>, TState> mapper)
 	{
 		if (mapper is null)
 			throw new ArgumentNullException(nameof(mapper));
 
 		return (TState state, TDelta delta) =>
 		{
-			ImmutableArray<TElement> elements = SubStateSelector(state);
-
-			var arrayBuilder = ImmutableArray.CreateBuilder<TElement>();
+			ImmutableList<TElement> elements = SubStateSelector(state);
 
 			bool anyChanged = false;
-			for (int o = 0; o < elements.Length; o++)
+			for (int o = 0; o < elements.Count; o++)
 			{
 				(bool changed, TElement element) = ElementReducer(elements[o], delta);
-				arrayBuilder.Add(element);
 				if (changed)
+				{
+					elements = elements.SetItem(o, element);
 					anyChanged = true;
+				}
 			}
 
 			return anyChanged
-				? (true, mapper(state, arrayBuilder.ToImmutableArray()))
+				? (true, mapper(state, elements))
 				: (false, state);
 		};
 	}
