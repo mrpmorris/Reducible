@@ -2,6 +2,7 @@
 
 ## New in 0.3.0
 * Code refactoring
+* Renamed `Reducer.CreateBuilder` to `Reducer.CreateCompositeBuilder`
 
 ## New in 0.2.0
 * Code refactoring
