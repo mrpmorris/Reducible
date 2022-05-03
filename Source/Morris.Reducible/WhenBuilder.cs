@@ -2,15 +2,6 @@
 
 namespace Morris.Reducible;
 
-public static class WhenBuilderExtensions
-{
-	public static WhenBuilder<TState, TDelta> When<TState, TDelta>(
-		this Builder<TState, TDelta> builder,
-		Func<TState, TDelta, bool> condition)
-		=>
-			new WhenBuilder<TState, TDelta>(condition);
-}
-
 public class WhenBuilder<TState, TDelta> : Builder<TState, TDelta>
 {
 	private readonly Func<TState, TDelta, bool> Condition;

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Immutable;
 
 namespace Morris.Reducible;
 
-public static class ThenBuilderExtensions
+public static class ThenExtensions
 {
 	public static Func<TState, TDelta, ReducerResult<TState>> Then<TState, TDelta>(
 		this Builder<TState, TDelta> sourceBuilder,
@@ -29,5 +30,6 @@ public static class ThenBuilderExtensions
 		return sourceBuilder
 			.Then((TState state, TDelta delta) => (true, mapper(state, delta)));
 	}
+
 }
 
