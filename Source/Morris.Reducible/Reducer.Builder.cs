@@ -6,7 +6,7 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public static Builder<TState> New<TState>() => new Builder<TState>();
+	public static Builder<TState> New<TState>() => new();
 
 	public class Builder<TState>
 	{

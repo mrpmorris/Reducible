@@ -6,9 +6,9 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public static ConditionBuilder<TState, TDelta> Given<TState, TDelta>() => new ConditionBuilder<TState, TDelta>();
+	public static ConditionBuilder<TState, TDelta> Given<TState, TDelta>() => new();
 
-	public static Builder<TState> CreateBuilder<TState>() => new Builder<TState>();
+	public static Builder<TState> CreateBuilder<TState>() => new();
 
 	public static Func<TState, TDelta, Result<TState>> Combine<TState, TDelta>(params Func<TState, TDelta, Result<TState>>[] reducers)
 	{
