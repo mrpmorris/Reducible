@@ -97,7 +97,7 @@ The signatures for these two `School` reducers are as follows
 And `Reducer.Combine` expects a `params` array of two or more `Func` of the **same** type, so it cannot combine them.
 
 
-#### Using a Reducer.CreateBuilder&lt;TState&gt;
+#### Using a Reducer.CreateCompositeBuilder&lt;TState&gt;
 
 Using the `Add` method on `Reducer.Builder<TState>` it is possible to combine reducers with various `Delta` types as long
 as they receive and return the same `TState` type. In our case this would be
@@ -108,13 +108,13 @@ as they receive and return the same `TState` type. In our case this would be
 The convention for building with `Reducer.CreateBuilder<T>` is as follows:
 
 ```c#
-var schoolReducer = Reducer.CreateBuilder<School>()
+var schoolReducer = Reducer.CreateCompositeBuilder<School>()
   .Add(schoolAddStudentAchievementReducer)
   .Add(schoolChangeHeadStudentReducer)
   .Build();
 ```
 
-Combining these reducers with `Reducer.CreateBuilder<TState>` returns a function with a signature of
+Combining these reducers with `Reducer.CreateCompositeBuilder<TState>` returns a function with a signature of
 `Func<TState, object, TState`. Meaning passing objects of any type as the `Delta`, and the `TState` will only have an
 affect if there is a reducer that reduces that `Delta` state into the `TState`. The `Delta` state can be an object of
 any form, making it a polymorphic reducer.
@@ -177,7 +177,7 @@ var changeHeadStudentDelta = new ChangeHeadStudent(student1);
 
 // Now build a reducer that can handle both
 // `Delta` types by allowing us to pass `TState` + `object`
-var schoolReducer = Reducer.CreateBuilder<School>()
+var schoolReducer = Reducer.CreateCompositeBuilder<School>()
   .Add(schoolAddStudentAchievementReducer)
   .Add(schoolChangeHeadStudentReducer)
   .Build();
@@ -288,7 +288,7 @@ State={
 ```
 
 ### Summary
-1. It is possible to combine reducers with different `Delta` class types by using `Reducer.CreateBuilder<TState>`.
+1. It is possible to combine reducers with different `Delta` class types by using `Reducer.CreateCompositeBuilder<TState>`.
 2. You can pass as many existing reducers as you wish, but they must all have the same `TState` type.
 2. The signature of the reducer returned will be `Func<TState, object, TState>`.
 3. It is possible to reduce a `Delta` of **any** class type into this reducer, any type without a reducer will have no effect.
