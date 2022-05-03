@@ -6,19 +6,19 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public static Builder<TState> New<TState>() => new Builder<TState>();
+	public static CompositeBuilder<TState> CreateCompositeBuilder<TState>() => new CompositeBuilder<TState>();
 
-	public class Builder<TState>
+	public class CompositeBuilder<TState>
 	{
 		private bool Built;
-		private List<KeyValuePair<Type, Func<TState, object, Result<TState>>>> TypesAndReducers;
+		private List<KeyValuePair<Type, Func<TState, object, ReducerResult<TState>>>> TypesAndReducers;
 
-		internal Builder()
+		internal CompositeBuilder()
 		{
 			TypesAndReducers = new();
 		}
 
-		public Builder<TState> Add<TDelta>(Func<TState, TDelta, Result<TState>> reducer)
+		public CompositeBuilder<TState> Add<TDelta>(Func<TState, TDelta, ReducerResult<TState>> reducer)
 		{
 			if (reducer is null)
 				throw new ArgumentNullException(nameof(reducer));
@@ -28,11 +28,11 @@ public static partial class Reducer
 			return this;
 		}
 
-		public Func<TState, object, Result<TState>> Build()
+		public Func<TState, object, ReducerResult<TState>> Build()
 		{
 			EnsureNotBuilt();
 			if (TypesAndReducers.Count == 0)
-				throw new InvalidOperationException("Must add at least one reducer to build.");
+				throw new InvalidOperationException("Must add at least one reducer to build");
 
 			Built = true;
 
@@ -50,7 +50,7 @@ public static partial class Reducer
 
 				bool anyChanged = false;
 				TState newState = state;
-				foreach(var reducer in reducers)
+				foreach (var reducer in reducers)
 				{
 					(bool changed, newState) = reducer(newState, delta);
 					anyChanged |= changed;

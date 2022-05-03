@@ -6,11 +6,14 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public static ConditionBuilder<TState, TDelta> Given<TState, TDelta>() => new ConditionBuilder<TState, TDelta>();
+	public static Builder<TState, TDelta> Given<TState, TDelta>() =>
+		new GivenBuilder<TState, TDelta>();
 
-	public static Builder<TState> CreateBuilder<TState>() => new Builder<TState>();
+	//public static CompositeBuilder<TState> CreateCompositeBuilder<TState>() =>
+	//	new CompositeBuilder<TState>();
 
-	public static Func<TState, TDelta, Result<TState>> Combine<TState, TDelta>(params Func<TState, TDelta, Result<TState>>[] reducers)
+	public static Func<TState, TDelta, ReducerResult<TState>> Combine<TState, TDelta>(
+		params Func<TState, TDelta, ReducerResult<TState>>[] reducers)
 	{
 		if (reducers is null)
 			throw new ArgumentNullException(nameof(reducers));
