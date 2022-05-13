@@ -25,7 +25,7 @@ public class WhenIEnumerableReducedByBuilder<TState, TElement, TDelta>
 		if (mapper is null)
 			throw new ArgumentNullException(nameof(mapper));
 
-		return (TState state, TDelta delta) =>
+		Func<TState, TDelta, ReducerResult<TState>> process = (state, delta) =>
 		{
 			IEnumerable<TElement> elements = SubStateSelector(state);
 
@@ -44,5 +44,7 @@ public class WhenIEnumerableReducedByBuilder<TState, TElement, TDelta>
 				? (true, mapper(state, list.ToImmutableArray()))
 				: (false, state);
 		};
+
+		return SourceBuilder.Build(process);
 	}
 }
