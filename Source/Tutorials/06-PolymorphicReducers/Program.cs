@@ -51,6 +51,10 @@ var schoolReducer = Reducer.CreateCompositeBuilder<School>()
 	.Add(schoolChangeHeadStudentReducer)
 	.Build();
 
+var testReducer = Reducer
+	.Given<List<int>, List<int>>()
+	.When((state, delta) => state.Count == delta.Count)
+	.Then((state, delta) => state);
 
 var student1 = new Student(1, "Peter Morris");
 var student2 = new Student(2, "Steven Cramer");
