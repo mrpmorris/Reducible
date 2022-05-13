@@ -3,6 +3,7 @@
 ## New in 0.3.0
 * Code refactoring
 * Renamed `Reducer.CreateBuilder` to `Reducer.CreateCompositeBuilder`
+* Allowed `.When` to be chained
 
 ## New in 0.2.0
 * Code refactoring
