@@ -5,16 +5,16 @@ namespace Morris.Reducible;
 
 public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
 {
-	private readonly Builder<TState, TDelta> SourceBuilder;
+	private readonly IBuilderSource<TState, TDelta> BuilderSource;
 	private readonly Func<TState, ImmutableList<TElement>> SubStateSelector;
 	private readonly Func<TElement, TDelta, ReducerResult<TElement>> ElementReducer;
 
 	internal WhenImmutableListReducedByBuilder(
-		Builder<TState, TDelta> sourceBuilder,
+		IBuilderSource<TState, TDelta> builderSource,
 		Func<TState, ImmutableList<TElement>> subStateSelector,
 		Func<TElement, TDelta, ReducerResult<TElement>> elementReducer)
 	{
-		SourceBuilder = sourceBuilder ?? throw new ArgumentNullException(nameof(sourceBuilder));
+		BuilderSource = builderSource ?? throw new ArgumentNullException(nameof(builderSource));
 		SubStateSelector = subStateSelector ?? throw new ArgumentNullException(nameof(subStateSelector));
 		ElementReducer = elementReducer ?? throw new ArgumentNullException(nameof(elementReducer));
 	}
@@ -44,6 +44,6 @@ public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
 				: (false, state);
 		};
 
-		return SourceBuilder.Build(process);
+		return BuilderSource.Build(process);
 	}
 }

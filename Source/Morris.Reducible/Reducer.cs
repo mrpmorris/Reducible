@@ -6,7 +6,7 @@ namespace Morris.Reducible;
 
 public static partial class Reducer
 {
-	public static Builder<TState, TDelta> Given<TState, TDelta>() =>
+	public static IBuilderSource<TState, TDelta> Given<TState, TDelta>() =>
 		new GivenBuilder<TState, TDelta>();
 
 	public static Func<TState, TDelta, ReducerResult<TState>> Combine<TState, TDelta>(

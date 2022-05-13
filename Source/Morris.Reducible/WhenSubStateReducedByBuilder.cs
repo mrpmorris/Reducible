@@ -4,16 +4,16 @@ namespace Morris.Reducible;
 
 public class WhenSubStateReducedByBuilder<TState, TSubState, TDelta>
 {
-	private readonly Builder<TState, TDelta> SourceBuilder;
+	private readonly IBuilderSource<TState, TDelta> BuilderSource;
 	private readonly Func<TState, TSubState> SubStateSelector;
 	private readonly Func<TSubState, TDelta, ReducerResult<TSubState>> SubStateReducer;
 
 	internal WhenSubStateReducedByBuilder(
-		Builder<TState, TDelta> sourceBuilder,
+		IBuilderSource<TState, TDelta> builderSource,
 		Func<TState, TSubState> subStateSelector,
 		Func<TSubState, TDelta, ReducerResult<TSubState>> elementReducer)
 	{
-		SourceBuilder = sourceBuilder ?? throw new ArgumentNullException(nameof(sourceBuilder));
+		BuilderSource = builderSource ?? throw new ArgumentNullException(nameof(builderSource));
 		SubStateSelector = subStateSelector ?? throw new ArgumentNullException(nameof(subStateSelector));
 		SubStateReducer = elementReducer ?? throw new ArgumentNullException(nameof(elementReducer));
 	}
@@ -33,6 +33,6 @@ public class WhenSubStateReducedByBuilder<TState, TSubState, TDelta>
 				: (false, state);
 		};
 
-		return SourceBuilder.Build(process);
+		return BuilderSource.Build(process);
 	}
 }
