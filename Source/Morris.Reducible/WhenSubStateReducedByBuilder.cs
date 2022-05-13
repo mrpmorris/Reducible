@@ -23,7 +23,7 @@ public class WhenSubStateReducedByBuilder<TState, TSubState, TDelta>
 		if (reducer is null)
 			throw new ArgumentNullException(nameof(reducer));
 
-		return (TState state, TDelta delta) =>
+		Func<TState, TDelta, ReducerResult<TState>> process =  (state, delta) =>
 		{
 			TSubState subState = SubStateSelector(state);
 			(bool changed, subState) = SubStateReducer(subState, delta);
@@ -32,5 +32,7 @@ public class WhenSubStateReducedByBuilder<TState, TSubState, TDelta>
 				? (true, reducer(state, subState))
 				: (false, state);
 		};
+
+		return SourceBuilder.Build(process);
 	}
 }

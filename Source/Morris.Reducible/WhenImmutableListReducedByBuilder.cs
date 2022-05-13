@@ -24,7 +24,7 @@ public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
 		if (mapper is null)
 			throw new ArgumentNullException(nameof(mapper));
 
-		return (TState state, TDelta delta) =>
+		Func<TState, TDelta, ReducerResult<TState>> process = (state, delta) =>
 		{
 			ImmutableList<TElement> elements = SubStateSelector(state);
 
@@ -43,5 +43,7 @@ public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
 				? (true, mapper(state, elements))
 				: (false, state);
 		};
+
+		return SourceBuilder.Build(process);
 	}
 }
