@@ -4,10 +4,12 @@ namespace Morris.Reducible;
 
 public class WhenBuilder<TState, TDelta> : Builder<TState, TDelta>
 {
+	private readonly Builder<TState, TDelta> Source;
 	private readonly Func<TState, TDelta, bool> Condition;
 
-	internal WhenBuilder(Func<TState, TDelta, bool> condition)
+	internal WhenBuilder(Builder<TState, TDelta> source, Func<TState, TDelta, bool> condition)
 	{
+		Source = source ?? throw new ArgumentNullException(nameof(source));
 		Condition = condition ?? throw new ArgumentNullException(nameof(condition));
 	}
 
@@ -16,10 +18,13 @@ public class WhenBuilder<TState, TDelta> : Builder<TState, TDelta>
 	{
 		if (next is null)
 			throw new ArgumentNullException(nameof(next));
-		return (TState state, TDelta delta) =>
+
+		Func<TState, TDelta, ReducerResult<TState>> process = (state, delta) =>
 			!Condition(state, delta)
 			? (false, state)
 			: next(state, delta);
+
+		return Source.Build(process);
 	}
 }
 
