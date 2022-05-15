@@ -27,7 +27,6 @@
 	  <Compile Remove="CompositeBuilder.cs" />
 	  <Compile Remove="TransformExtensions.cs" />
 	  <Compile Remove="WhenIEnumerableReducedByBuilder.cs" />
-	  <Compile Remove="WhenImmutableArrayReducedByBuilder.cs" />
 	  <Compile Remove="WhenImmutableListReducedByBuilder.cs" />
 	  <Compile Remove="WhenReducedByExtensions.cs" />
 	  <Compile Remove="WhenSubStateReducedByBuilder.cs" />

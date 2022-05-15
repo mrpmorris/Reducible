@@ -17,8 +17,8 @@ var studentAddAchievementReducer = Reducer
 // already have that achievement.
 var schoolAddAchievementReducer = Reducer
 	.Given<School, AddStudentAchievement>()
-	.WhenReducedBy(x => x.Students, studentAddAchievementReducer)
-	.Then((school, students) => school with { Students = students });
+	.WhenReducedBy(x => x.Students, studentAddAchievementReducer, (school, students) => school with { Students = students })
+	.Then((school, delta) => school);
 
 
 var student1 = new Student(1, "Peter Morris");
