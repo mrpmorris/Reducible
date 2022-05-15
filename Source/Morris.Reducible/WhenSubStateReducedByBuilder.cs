@@ -2,34 +2,35 @@
 
 namespace Morris.Reducible;
 
-public class WhenSubStateReducedByBuilder<TState, TSubState, TDelta>
+public class WhenSubStateReducedByBuilder<TState, TSubState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
+	: IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
 {
-	private readonly IBuilderSource<TState, TDelta> BuilderSource;
+	private readonly IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> BuilderSource;
 	private readonly Func<TState, TSubState> SubStateSelector;
-	private readonly Func<TSubState, TDelta, ReducerResult<TSubState>> SubStateReducer;
+	private readonly Func<TSubState, TSourceDeltaProduced, ReducerResult<TSubState>> SubStateReducer;
+	private readonly Func<TState, TSubState, TState> StateReducer;
 
 	internal WhenSubStateReducedByBuilder(
-		IBuilderSource<TState, TDelta> builderSource,
+		IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> builderSource,
 		Func<TState, TSubState> subStateSelector,
-		Func<TSubState, TDelta, ReducerResult<TSubState>> elementReducer)
+		Func<TSubState, TSourceDeltaProduced, ReducerResult<TSubState>> elementReducer,
+		Func<TState, TSubState, TState> stateReducer)
 	{
 		BuilderSource = builderSource ?? throw new ArgumentNullException(nameof(builderSource));
 		SubStateSelector = subStateSelector ?? throw new ArgumentNullException(nameof(subStateSelector));
 		SubStateReducer = elementReducer ?? throw new ArgumentNullException(nameof(elementReducer));
+		StateReducer = stateReducer ?? throw new ArgumentNullException(nameof(stateReducer));
 	}
 
-	public Func<TState, TDelta, ReducerResult<TState>> Then(Func<TState, TSubState, TState> reducer)
+	public Func<TState, TRootDelta, ReducerResult<TState>> Build(Func<TState, TSourceDeltaProduced, ReducerResult<TState>> next)
 	{
-		if (reducer is null)
-			throw new ArgumentNullException(nameof(reducer));
-
-		Func<TState, TDelta, ReducerResult<TState>> process =  (state, delta) =>
+		Func<TState, TSourceDeltaProduced, ReducerResult<TState>> process =  (state, delta) =>
 		{
 			TSubState subState = SubStateSelector(state);
 			(bool changed, subState) = SubStateReducer(subState, delta);
 
 			return changed
-				? (true, reducer(state, subState))
+				? (true, StateReducer(state, subState))
 				: (false, state);
 		};
 

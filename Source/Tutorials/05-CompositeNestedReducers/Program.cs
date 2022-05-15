@@ -17,8 +17,8 @@ var studentAddAchievementReducer = Reducer
 // already have that achievement.
 var schoolStudentsAddAchievementReducer = Reducer
 	.Given<School, AddStudentAchievement>()
-	.WhenReducedBy(x => x.Students, studentAddAchievementReducer)
-	.Then((school, students) => school with { Students = students });
+	.WhenReducedBy(x => x.Students, studentAddAchievementReducer, (school, students) => school with { Students = students })
+	.Then((school, _) => school);
 
 // Create a reducer for the school, which uses the student reducer
 // on its `Student HeadStudent` property
@@ -26,8 +26,8 @@ var schoolStudentsAddAchievementReducer = Reducer
 // already have that achievement.
 var schoolHeadStudentAddAchievementReducer = Reducer
 	.Given<School, AddStudentAchievement>()
-	.WhenReducedBy(x => x.HeadStudent, studentAddAchievementReducer)
-	.Then((school, headStudent) => school with { HeadStudent = headStudent });
+	.WhenReducedBy(x => x.HeadStudent, studentAddAchievementReducer, (school, headStudent) => school with { HeadStudent = headStudent})
+	.Then((school, _) => school);
 
 // Create a combined reducer that takes School as a state,
 // AddStudentAchievementAction as an action
