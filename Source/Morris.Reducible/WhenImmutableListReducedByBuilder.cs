@@ -3,30 +3,33 @@ using System.Collections.Immutable;
 
 namespace Morris.Reducible;
 
-public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
+public class WhenImmutableListReducedByBuilder<TState, TElement, TElementCollection, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
+	: IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
+	where TElementCollection: IImmutableList<TElement>
 {
-	private readonly IBuilderSource<TState, TDelta> BuilderSource;
-	private readonly Func<TState, ImmutableList<TElement>> SubStateSelector;
-	private readonly Func<TElement, TDelta, ReducerResult<TElement>> ElementReducer;
+	private readonly IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> BuilderSource;
+	private readonly Func<TState, TElementCollection> SubStateSelector;
+	private readonly Func<TElement, TSourceDeltaProduced, ReducerResult<TElement>> ElementReducer;
+	private readonly Func<TState, TElementCollection, TState> StateReducer;
 
 	internal WhenImmutableListReducedByBuilder(
-		IBuilderSource<TState, TDelta> builderSource,
-		Func<TState, ImmutableList<TElement>> subStateSelector,
-		Func<TElement, TDelta, ReducerResult<TElement>> elementReducer)
+		IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> builderSource,
+		Func<TState, TElementCollection> subStateSelector,
+		Func<TElement, TSourceDeltaProduced, ReducerResult<TElement>> elementReducer,
+		Func<TState, TElementCollection, TState> stateReducer)
 	{
 		BuilderSource = builderSource ?? throw new ArgumentNullException(nameof(builderSource));
 		SubStateSelector = subStateSelector ?? throw new ArgumentNullException(nameof(subStateSelector));
 		ElementReducer = elementReducer ?? throw new ArgumentNullException(nameof(elementReducer));
+		StateReducer = stateReducer ?? throw new ArgumentNullException(nameof(stateReducer));
 	}
 
-	public Func<TState, TDelta, ReducerResult<TState>> Then(Func<TState, ImmutableList<TElement>, TState> mapper)
+	public Func<TState, TRootDelta, ReducerResult<TState>>
+		Build(Func<TState, TSourceDeltaProduced, ReducerResult<TState>> next)
 	{
-		if (mapper is null)
-			throw new ArgumentNullException(nameof(mapper));
-
-		Func<TState, TDelta, ReducerResult<TState>> process = (state, delta) =>
+		Func<TState, TSourceDeltaProduced, ReducerResult<TState>> process = (state, delta) =>
 		{
-			ImmutableList<TElement> elements = SubStateSelector(state);
+			TElementCollection elements = SubStateSelector(state);
 
 			bool anyChanged = false;
 			for (int o = 0; o < elements.Count; o++)
@@ -34,13 +37,13 @@ public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
 				(bool changed, TElement element) = ElementReducer(elements[o], delta);
 				if (changed)
 				{
-					elements = elements.SetItem(o, element);
+					elements = (TElementCollection)elements.SetItem(o, element);
 					anyChanged = true;
 				}
 			}
 
 			return anyChanged
-				? (true, mapper(state, elements))
+				? (true, StateReducer(state, elements))
 				: (false, state);
 		};
 
