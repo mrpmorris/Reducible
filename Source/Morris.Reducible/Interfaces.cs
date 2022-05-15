@@ -2,7 +2,7 @@
 
 namespace Morris.Reducible;
 
-public interface IBuilderSource<TState, TDelta>
+public interface IBuilderSource<TState, TRootDelta, in TDeltaConsumed, out TDeltaProduced>
 {
-	Func<TState, TDelta, ReducerResult<TState>> Build(Func<TState, TDelta, ReducerResult<TState>> next);
+	Func<TState, TRootDelta, ReducerResult<TState>> Build(Func<TState, TDeltaProduced, ReducerResult<TState>> next);
 }

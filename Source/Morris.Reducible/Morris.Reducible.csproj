@@ -21,6 +21,18 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>	
+
+	<ItemGroup>
+	  <Compile Remove="CompositeBuilder.cs" />
+	  <Compile Remove="TransformExtensions.cs" />
+	  <Compile Remove="WhenBuilder.cs" />
+	  <Compile Remove="WhenBuilderExtensions.cs" />
+	  <Compile Remove="WhenIEnumerableReducedByBuilder.cs" />
+	  <Compile Remove="WhenImmutableArrayReducedByBuilder.cs" />
+	  <Compile Remove="WhenImmutableListReducedByBuilder.cs" />
+	  <Compile Remove="WhenReducedByExtensions.cs" />
+	  <Compile Remove="WhenSubStateReducedByBuilder.cs" />
 	</ItemGroup>
 
 </Project>

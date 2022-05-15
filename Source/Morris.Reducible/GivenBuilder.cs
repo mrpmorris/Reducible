@@ -2,10 +2,10 @@
 
 namespace Morris.Reducible;
 
-public class GivenBuilder<TState, TDelta> : IBuilderSource<TState, TDelta>
+public class GivenBuilder<TState, TRootDelta> : IBuilderSource<TState, TRootDelta, TRootDelta, TRootDelta>
 {
-	public Func<TState, TDelta, ReducerResult<TState>>
-		Build(Func<TState, TDelta, ReducerResult<TState>> next)
+	public Func<TState, TRootDelta, ReducerResult<TState>>
+		Build(Func<TState, TRootDelta, ReducerResult<TState>> next)
 	=>
 		next;
 }
