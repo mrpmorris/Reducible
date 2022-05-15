@@ -2,10 +2,10 @@
 
 namespace Morris.Reducible;
 
-public static class OptimizeDeltaExtensions
+public static class TransformDeltaExtensions
 {
 	public static IBuilderSource<TState, TRootDelta, TSourceDeltaProduced, TDeltaProduced>
-		OptimizeDelta<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced, TDeltaProduced>(
+		TransformDelta<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced, TDeltaProduced>(
 			this IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> builderSource,
 			Func<TSourceDeltaProduced, TDeltaProduced> mapper)
 	{
@@ -14,16 +14,16 @@ public static class OptimizeDeltaExtensions
 		if (mapper is null)
 			throw new ArgumentNullException(nameof(mapper));
 
-		return new OptimizeDeltaBuilder<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced, TDeltaProduced>(builderSource, mapper);
+		return new TransformDeltaBuilder<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced, TDeltaProduced>(builderSource, mapper);
 	}
 
-	internal class OptimizeDeltaBuilder<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced, TDeltaProduced>
+	internal class TransformDeltaBuilder<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced, TDeltaProduced>
 		: IBuilderSource<TState, TRootDelta, TSourceDeltaProduced, TDeltaProduced>
 	{
 		private readonly IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> BuilderSource;
 		private readonly Func<TSourceDeltaProduced, TDeltaProduced> DeltaMapper;
 
-		public OptimizeDeltaBuilder(
+		public TransformDeltaBuilder(
 			IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> builderSource,
 			Func<TSourceDeltaProduced, TDeltaProduced> deltaMapper)
 		{
