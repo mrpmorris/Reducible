@@ -3,19 +3,20 @@ using System.Collections.Immutable;
 
 namespace Morris.Reducible;
 
-public static class WhenImmutableArrayReducedByBuilderExtensions
+public static  class WhenImmutableListReducedByExtensions
 {
 	public static IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
-		WhenReducedBy<TState, TElement, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>(
+		WhenReducedBy<TState, TElement, TElementCollection, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>(
 			this IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> builderSource,
-			Func<TState, ImmutableArray<TElement>> subStateSelector,
+			Func<TState, TElementCollection> subStateSelector,
 			Func<TElement, TSourceDeltaProduced, ReducerResult<TElement>> elementReducer,
-			Func<TState, ImmutableArray<TElement>, TState> stateReducer)
+			Func<TState, TElementCollection, TState> stateReducer)
+			where TElementCollection : IImmutableList<TElement>
+
 	=>
-		new WhenImmutableArrayReducedByBuilder<TState, TElement, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>(
+		new WhenImmutableListReducedByBuilder<TState, TElement, TElementCollection, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>(
 			builderSource: builderSource,
 			subStateSelector: subStateSelector,
 			elementReducer: elementReducer,
 			stateReducer: stateReducer);
 }
-

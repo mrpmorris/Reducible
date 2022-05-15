@@ -2,7 +2,7 @@
 
 namespace Morris.Reducible;
 
-public class WhenSubStateReducedByBuilder<TState, TSubState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
+internal class WhenSubStateReducedByBuilder<TState, TSubState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
 	: IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
 {
 	private readonly IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> BuilderSource;

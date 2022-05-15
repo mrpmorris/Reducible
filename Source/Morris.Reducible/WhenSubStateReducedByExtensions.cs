@@ -2,7 +2,7 @@
 
 namespace Morris.Reducible;
 
-public static class WhenSubStateReducedByBuilderExtensions
+public static class WhenSubStateReducedByExtensions
 {
 	public static IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
 		WhenReducedBy<TState, TElement, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>(

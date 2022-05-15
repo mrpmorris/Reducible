@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace Morris.Reducible;
 
-public class WhenImmutableArrayReducedByBuilder<TState, TElement, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
+internal class WhenImmutableArrayReducedByBuilder<TState, TElement, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
 	: IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
 {
 	private readonly IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced> BuilderSource;

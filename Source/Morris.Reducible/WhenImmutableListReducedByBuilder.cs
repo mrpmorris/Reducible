@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace Morris.Reducible;
 
-public class WhenImmutableListReducedByBuilder<TState, TElement, TElementCollection, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
+internal class WhenImmutableListReducedByBuilder<TState, TElement, TElementCollection, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
 	: IBuilderSource<TState, TRootDelta, TSourceDeltaConsumed, TSourceDeltaProduced>
 	where TElementCollection: IImmutableList<TElement>
 {
