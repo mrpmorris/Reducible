@@ -29,9 +29,8 @@ public class WhenImmutableArrayReducedByBuilder<TState, TElement, TDeltaIn, TOpt
 
 		Func<TState, TDeltaIn, ReducerResult<TState>> process = (state, delta) =>
 		{
-			ImmutableArray<TElement> elements = SubStateSelector(state);
-
 			TOptimizedDelta optimizedDelta = OptimizeDelta(delta);
+			ImmutableArray<TElement> elements = SubStateSelector(state);
 
 			var arrayBuilder = ImmutableArray.CreateBuilder<TElement>();
 

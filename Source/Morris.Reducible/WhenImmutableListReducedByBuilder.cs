@@ -3,19 +3,22 @@ using System.Collections.Immutable;
 
 namespace Morris.Reducible;
 
-public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
+public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta, TOptimizedDelta>
 {
 	private readonly Builder<TState, TDelta> SourceBuilder;
 	private readonly Func<TState, ImmutableList<TElement>> SubStateSelector;
-	private readonly Func<TElement, TDelta, ReducerResult<TElement>> ElementReducer;
+	private readonly Func<TDelta, TOptimizedDelta> OptimizeDelta;
+	private readonly Func<TElement, TOptimizedDelta, ReducerResult<TElement>> ElementReducer;
 
 	internal WhenImmutableListReducedByBuilder(
 		Builder<TState, TDelta> sourceBuilder,
 		Func<TState, ImmutableList<TElement>> subStateSelector,
-		Func<TElement, TDelta, ReducerResult<TElement>> elementReducer)
+		Func<TDelta, TOptimizedDelta> optimizeDelta,
+		Func<TElement, TOptimizedDelta, ReducerResult<TElement>> elementReducer)
 	{
 		SourceBuilder = sourceBuilder ?? throw new ArgumentNullException(nameof(sourceBuilder));
 		SubStateSelector = subStateSelector ?? throw new ArgumentNullException(nameof(subStateSelector));
+		OptimizeDelta = optimizeDelta ?? throw new ArgumentNullException(nameof(optimizeDelta));
 		ElementReducer = elementReducer ?? throw new ArgumentNullException(nameof(elementReducer));
 	}
 
@@ -26,12 +29,13 @@ public class WhenImmutableListReducedByBuilder<TState, TElement, TDelta>
 
 		Func<TState, TDelta, ReducerResult<TState>> process = (state, delta) =>
 		{
+			TOptimizedDelta optimizedDelta = OptimizeDelta(delta);
 			ImmutableList<TElement> elements = SubStateSelector(state);
 
 			bool anyChanged = false;
 			for (int o = 0; o < elements.Count; o++)
 			{
-				(bool changed, TElement element) = ElementReducer(elements[o], delta);
+				(bool changed, TElement element) = ElementReducer(elements[o], optimizedDelta);
 				if (changed)
 				{
 					elements = elements.SetItem(o, element);
