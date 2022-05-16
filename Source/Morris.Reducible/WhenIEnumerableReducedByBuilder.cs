@@ -6,13 +6,13 @@ namespace Morris.Reducible;
 
 public class WhenIEnumerableReducedByBuilder<TState, TElement, TDelta, TOptimizedDelta>
 {
-	private readonly Builder<TState, TDelta> SourceBuilder;
+	private readonly GivenBuilder<TState, TDelta> SourceBuilder;
 	private readonly Func<TState, IEnumerable<TElement>> SubStateSelector;
 	private readonly Func<TDelta, TOptimizedDelta> OptimizeDelta;
 	private readonly Func<TElement, TOptimizedDelta, ReducerResult<TElement>> ElementReducer;
 
 	internal WhenIEnumerableReducedByBuilder(
-		Builder<TState, TDelta> sourceBuilder,
+		GivenBuilder<TState, TDelta> sourceBuilder,
 		Func<TState, IEnumerable<TElement>> subStateSelector,
 		Func<TDelta, TOptimizedDelta> optimizeDelta,
 		Func<TElement, TOptimizedDelta, ReducerResult<TElement>> elementReducer)

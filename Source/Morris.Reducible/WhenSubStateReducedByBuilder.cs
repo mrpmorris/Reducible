@@ -4,13 +4,13 @@ namespace Morris.Reducible;
 
 public class WhenSubStateReducedByBuilder<TState, TSubState, TDelta, TOptimizedDelta>
 {
-	private readonly Builder<TState, TDelta> SourceBuilder;
+	private readonly GivenBuilder<TState, TDelta> SourceBuilder;
 	private readonly Func<TState, TSubState> SubStateSelector;
 	private readonly Func<TDelta, TOptimizedDelta> OptimizeDelta;
 	private readonly Func<TSubState, TOptimizedDelta, ReducerResult<TSubState>> SubStateReducer;
 
 	internal WhenSubStateReducedByBuilder(
-		Builder<TState, TDelta> sourceBuilder,
+		GivenBuilder<TState, TDelta> sourceBuilder,
 		Func<TState, TSubState> subStateSelector,
 		Func<TDelta, TOptimizedDelta> optimizeDelta,
 		Func<TSubState, TOptimizedDelta, ReducerResult<TSubState>> elementReducer)

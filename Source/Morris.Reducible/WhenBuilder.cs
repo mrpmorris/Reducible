@@ -4,10 +4,10 @@ namespace Morris.Reducible;
 
 public class WhenBuilder<TState, TDelta> : Builder<TState, TDelta>
 {
-	private readonly Builder<TState, TDelta> SourceBuilder;
+	private readonly GivenBuilder<TState, TDelta> SourceBuilder;
 	private readonly Func<TState, TDelta, bool> Condition;
 
-	internal WhenBuilder(Builder<TState, TDelta> sourceBuilder, Func<TState, TDelta, bool> condition)
+	internal WhenBuilder(GivenBuilder<TState, TDelta> sourceBuilder, Func<TState, TDelta, bool> condition)
 	{
 		SourceBuilder = sourceBuilder ?? throw new ArgumentNullException(nameof(sourceBuilder));
 		Condition = condition ?? throw new ArgumentNullException(nameof(condition));

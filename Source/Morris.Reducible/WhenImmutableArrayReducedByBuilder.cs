@@ -5,13 +5,13 @@ namespace Morris.Reducible;
 
 public class WhenImmutableArrayReducedByBuilder<TState, TElement, TDeltaIn, TOptimizedDelta>
 {
-	private readonly Builder<TState, TDeltaIn> SourceBuilder;
+	private readonly GivenBuilder<TState, TDeltaIn> SourceBuilder;
 	private readonly Func<TState, ImmutableArray<TElement>> SubStateSelector;
 	private readonly Func<TDeltaIn, TOptimizedDelta> OptimizeDelta;
 	private readonly Func<TElement, TOptimizedDelta, ReducerResult<TElement>> ElementReducer;
 
 	internal WhenImmutableArrayReducedByBuilder(
-		Builder<TState, TDeltaIn> sourceBuilder,
+		GivenBuilder<TState, TDeltaIn> sourceBuilder,
 		Func<TState, ImmutableArray<TElement>> subStateSelector,
 		Func<TDeltaIn, TOptimizedDelta> optimizeDelta,
 		Func<TElement, TOptimizedDelta, ReducerResult<TElement>> elementReducer)
