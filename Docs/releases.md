@@ -1,6 +1,6 @@
 # Releases
 
-# New in 0.4.0
+## New in 0.4.0
 * Code refactoring
 * Ability to optimize Delta when calling sub-state reducers ([#8](https://github.com/mrpmorris/Reducible/issues/8))
 
