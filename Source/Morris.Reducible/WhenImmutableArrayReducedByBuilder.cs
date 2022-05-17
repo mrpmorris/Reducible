@@ -3,29 +3,33 @@ using System.Collections.Immutable;
 
 namespace Morris.Reducible;
 
-public class WhenImmutableArrayReducedByBuilder<TState, TElement, TDelta>
+public class WhenImmutableArrayReducedByBuilder<TState, TElement, TDeltaIn, TOptimizedDelta>
 {
-	private readonly Builder<TState, TDelta> SourceBuilder;
+	private readonly GivenBuilder<TState, TDeltaIn> SourceBuilder;
 	private readonly Func<TState, ImmutableArray<TElement>> SubStateSelector;
-	private readonly Func<TElement, TDelta, ReducerResult<TElement>> ElementReducer;
+	private readonly Func<TDeltaIn, TOptimizedDelta> OptimizeDelta;
+	private readonly Func<TElement, TOptimizedDelta, ReducerResult<TElement>> ElementReducer;
 
 	internal WhenImmutableArrayReducedByBuilder(
-		Builder<TState, TDelta> sourceBuilder,
+		GivenBuilder<TState, TDeltaIn> sourceBuilder,
 		Func<TState, ImmutableArray<TElement>> subStateSelector,
-		Func<TElement, TDelta, ReducerResult<TElement>> elementReducer)
+		Func<TDeltaIn, TOptimizedDelta> optimizeDelta,
+		Func<TElement, TOptimizedDelta, ReducerResult<TElement>> elementReducer)
 	{
 		SourceBuilder = sourceBuilder ?? throw new ArgumentNullException(nameof(sourceBuilder));
 		SubStateSelector = subStateSelector ?? throw new ArgumentNullException(nameof(subStateSelector));
+		OptimizeDelta = optimizeDelta ?? throw new ArgumentNullException(nameof(optimizeDelta));
 		ElementReducer = elementReducer ?? throw new ArgumentNullException(nameof(elementReducer));
 	}
 
-	public Func<TState, TDelta, ReducerResult<TState>> Then(Func<TState, ImmutableArray<TElement>, TState> mapper)
+	public Func<TState, TDeltaIn, ReducerResult<TState>> Then(Func<TState, ImmutableArray<TElement>, TState> mapper)
 	{
 		if (mapper is null)
 			throw new ArgumentNullException(nameof(mapper));
 
-		return (TState state, TDelta delta) =>
+		Func<TState, TDeltaIn, ReducerResult<TState>> process = (state, delta) =>
 		{
+			TOptimizedDelta optimizedDelta = OptimizeDelta(delta);
 			ImmutableArray<TElement> elements = SubStateSelector(state);
 
 			var arrayBuilder = ImmutableArray.CreateBuilder<TElement>();
@@ -33,7 +37,7 @@ public class WhenImmutableArrayReducedByBuilder<TState, TElement, TDelta>
 			bool anyChanged = false;
 			for (int o = 0; o < elements.Length; o++)
 			{
-				(bool changed, TElement element) = ElementReducer(elements[o], delta);
+				(bool changed, TElement element) = ElementReducer(elements[o], optimizedDelta);
 				arrayBuilder.Add(element);
 				if (changed)
 					anyChanged = true;
@@ -43,5 +47,7 @@ public class WhenImmutableArrayReducedByBuilder<TState, TElement, TDelta>
 				? (true, mapper(state, arrayBuilder.ToImmutableArray()))
 				: (false, state);
 		};
+
+		return SourceBuilder.Build(process);
 	}
 }
