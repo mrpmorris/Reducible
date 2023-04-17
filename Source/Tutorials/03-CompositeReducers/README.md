@@ -98,7 +98,7 @@ Step=4, Changed=False, State={ "EvenValue": 2, "OddValue": 3 }
 
 #### Requirement 3
 We might need to use this pattern in many places in our application. We don't want to run the risk of forgetting to call
-one of these reducers in one of the places we places we implement the pattern, but we also don't want to recreate the original
+one of these reducers in one of the places we implement the pattern, but we also don't want to recreate the original
 reducer in a more complex form.
 
 Instead, we can let ***Reducible*** combine the two reducers into a single reducer automatically.
