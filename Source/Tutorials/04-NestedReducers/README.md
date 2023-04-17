@@ -28,7 +28,7 @@ record AddStudentAchievement(int StudentId, string Achievement);
 
 
 ### Requirements
-We have a school with zero to many students. We need to ensure that the student
+We have a school with zero to many students. We need to ensure that the achievement
 identified in the `AddStudentAchievement` delta is added to the correct student.
 
 If the student is present in the school, and the student doesn't already have
