@@ -1,0 +1,36 @@
+<Project>
+	<PropertyGroup>
+		<LangVersion>11</LangVersion>
+		<Version>0.6.0</Version>
+		<AssemblyVersion>0.6.0.0</AssemblyVersion>
+		<FileVersion>0.6.0.0</FileVersion>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net472;net48;net6.0;net7.0;net8.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<Authors>Peter Morris</Authors>
+		<Company />
+		<Copyright>Peter Morris</Copyright>
+		<PackageLicenseFile></PackageLicenseFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+		<PackageId>Reducible</PackageId>
+		<Product>Morris.Reducible</Product>
+		<Description>A State Reducer library for .NET</Description>
+		<PackageIcon>small-logo.png</PackageIcon>
+		<PackageTags>Immutable Reduce Reducible DotNet CSharp</PackageTags>
+		<PackageProjectUrl>https://github.com/mrpmorris/Reducible</PackageProjectUrl>
+		<PackageIconUrl />
+		<RepositoryUrl>https://github.com/mrpmorris/Reducible</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<AssemblyOriginatorKeyFile>..\..\MrPMorris.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+</Project>

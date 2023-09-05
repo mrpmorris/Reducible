@@ -1,26 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	
-	<PropertyGroup>
-		<TargetFrameworks>netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
-		<LangVersion>10</LangVersion>
-		<Nullable>enable</Nullable>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)'=='Release'">
-		<PackageId>Reducible</PackageId>
-		<Product>Morris.Reducible</Product>
-		<Description>A State Reducer library for .NET</Description>
-		<PackageIcon>small-logo.png</PackageIcon>
-		<PackageTags>Immutable Reduce Reducible DotNet CSharp</PackageTags>
-		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\..\MrPMorris.snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>	
-
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
 		<None Include="..\..\Images\small-logo.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>	
+
+	<ItemGroup>
+	  <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
 	</ItemGroup>
 
 </Project>
