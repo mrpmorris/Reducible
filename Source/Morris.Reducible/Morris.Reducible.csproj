@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-		<LangVersion>10</LangVersion>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net472;net48;net6.0;net7.0;net8.0</TargetFrameworks>
+		<LangVersion>11</LangVersion>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
@@ -21,6 +21,10 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>	
+
+	<ItemGroup>
+	  <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
 	</ItemGroup>
 
 </Project>

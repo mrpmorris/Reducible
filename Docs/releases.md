@@ -1,5 +1,8 @@
 # Releases
 
+## New in 0.6.0
+* Support .Net Standard 2 & 2.1; .Net 4.7.2 & 4.8; .Net 8
+* 
 ## New in 0.5.0
 * Support .NET 7
 * Remove frameworks no longer supported by Microsoft
